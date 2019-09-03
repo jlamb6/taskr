@@ -1,12 +1,15 @@
 import React, { Component} from "react";
 import {hot} from "react-hot-loader";
-import "./App.css";
+import "./App.less";
+import SideMenu from "../src/components/menu/menu-side"
+import BoardHeader from "./components/menu/board-header"
 
 class App extends Component{
   render(){
     return(
       <div className="App">
-        <h1>Hey ohhhhh! Its working fools.</h1>
+        <SideMenu />
+        <BoardHeader />
       </div>
     );
   }
