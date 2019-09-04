@@ -8,23 +8,23 @@ export enum IconName {
 }
 
 export enum IconColor {
-    Black = "black",
-    Grey = "grey",
-    White = "white"
+    BLACK = "black",
+    GREY = "grey",
+    WHITE = "white"
 }
 
 export interface IconProps {
     small?: boolean;
     medium?: boolean;
     large?: boolean;
-    name: IconName;
+    name: string;
     color?: IconColor;
     class?: string;
 }
 
-const Icon = (props: IconProps) => {
+export const Icon = (props: IconProps) => {
 
-    const { small, medium, large, ...rest } = props;
+    const { name, small, medium, large, ...rest } = props;
 
     const className = classNames(
         'icon',
@@ -37,12 +37,13 @@ const Icon = (props: IconProps) => {
         }
     );   
 
-    return (
-        <span 
-            className={className}
-            role="presentation"
-        />
-    )
+    let resolved = require(`@material-ui/icons/${name}`).default;
+
+    if (!resolved) {
+        throw Error(`Couldn't find the ${name} icon at @material-ui/icons/${name}.`);
+    }
+
+    return React.createElement(resolved, {className: className});
 }
 
-export default Icon
+//export default Icon

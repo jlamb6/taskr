@@ -1,7 +1,7 @@
 import * as React from "react"
 import classNames from "classnames"
+import { Icon, IconColor } from "../common/icons"
 import "./button.less"
-import PersonAddOutlinedIcon from '@material-ui/icons/PersonAddOutlined';
 
 export enum ButtonTypes {
     DEFAULT = 'default',
@@ -12,6 +12,8 @@ export enum ButtonTypes {
     LINKBUTTON = 'linkButton',
 }
 export enum ButtonSizes {
+    SMALL = 'small',
+    MEDIUM = 'medium',
     DEFAULT = 'default',
     WIDE = 'wide',
     FULLWIDTH = 'fullwidth',
@@ -22,6 +24,7 @@ interface ButtonProps {
     buttonType: ButtonTypes;
     iconName?: string;
     backgroundColor?: string;
+    fontColor?: string;
     buttonSize?: ButtonSizes;
     onClick?: React.MouseEventHandler;
 }
@@ -30,14 +33,18 @@ export class Button extends React.Component<ButtonProps> {
 
     public render() {
 
-        const { title, buttonType, ...rest } = this.props;
-        const className = classNames('button', {
-            [`btn-${buttonType}`]: true
-        });
+        const { title, buttonType, buttonSize, fontColor, ...rest } = this.props;
+        const className = classNames('button', 
+            buttonSize || ButtonSizes.DEFAULT,
+            fontColor || "inherit",
+            {
+                [`btn-${buttonType}`]: true
+            }
+        );
 
         return(
             <button type="button" className={className}>
-                <PersonAddOutlinedIcon fill="white"/>
+                { (this.props.iconName) ? Icon({name: this.props.iconName, small: true, color: IconColor.GREY}): null }
                 {this.props.title}
             </button>
         )

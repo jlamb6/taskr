@@ -13,6 +13,8 @@
     margin: 0;
     padding: 0;
     font-weight: 300;
+    position: relative;
+    grid-area: menu;
 }
 
 .menu .menu__header {
@@ -69,4 +71,62 @@
 
 .menu__members-container > * {
     margin-right: 6px;
+}
+
+.menu__invite-container {
+    position: absolute;
+    bottom: 0;
+    padding: 14px 24px;
+    text-align: center;
+}
+
+.menu__invite-container .invite-header {
+    font-weight: 100;
+}
+
+.menu__button-container {
+    margin: 14px 24px;
+}
+
+.board-header {
+    grid-area: header;
+    padding: 14px 24px;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+}
+
+.board-header__section-one, .board-header__section-two, .board-subheader {
+    display: flex;
+    align-items: center;
+}
+
+.board-header__title {
+    font-size: 1.4em;
+    font-weight: 600;
+    margin-bottom: 2px; 
+}
+
+.board-header__board-img {
+    width: 42px;
+    height: 42px;
+    border-radius: 8px;
+    border: 1px solid black;
+    margin-right: 14px;
+}
+
+.board-header__icons {
+    display: flex;
+    align-items: center;
+}
+
+.board-subheader {
+    height: 36px;
+    border-bottom: 1px solid black;
+}
+
+.board-subheader {
+    font-size: .78em;
+    padding: 0 24px;
+    justify-content: space-between;
 }

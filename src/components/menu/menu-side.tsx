@@ -9,7 +9,7 @@ import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
 import ComputerOutlinedIcon from '@material-ui/icons/ComputerOutlined';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import UserInitials from "../../common/user-circle";
-import { Button, ButtonTypes } from "../../common/button"
+import { Button, ButtonTypes, ButtonSizes } from "../../common/button"
 
 interface MenuItemProps {
     title: string;
@@ -55,7 +55,7 @@ class Menu_Side extends React.Component<{}> {
                         <UserInitials userName="Bruce Wayne" initials="BW" id="34567" />
                     </div>
                     <div className="menu__button-container">
-                        <Button title="Invite Members" buttonType={ButtonTypes.ICON}/>
+                        <Button title="Invite Members" buttonType={ButtonTypes.ICON} iconName="PersonAddOutlined" />
                     </div>
                 </div>
                 <hr />
@@ -68,6 +68,14 @@ class Menu_Side extends React.Component<{}> {
                         <div className="menu__nav-link"><CheckBoxOutlineBlankIcon /><MenuItem title="Web Development" /></div>
                         <div className="menu__nav-link"><CheckBoxOutlineBlankIcon /><MenuItem title="Project Management" /></div>
                    </div>
+                   <div className="menu__button-container">
+                        <Button title="New Board" buttonType={ButtonTypes.ICON} iconName="Add" />
+                   </div>
+                </div>
+                <hr />
+                <div className="menu__invite-container">
+                    <h4 className="invite-header">Invite your team and stay on top of your projects!</h4>
+                    <Button title="Invite to Taskr" buttonType={ButtonTypes.DEFAULT} buttonSize={ButtonSizes.FULLWIDTH} />
                 </div>
             </nav>
         )

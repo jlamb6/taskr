@@ -1,4 +1,24 @@
 .App {
     margin: 0;
-    display: flex;
+    display: grid;
+    grid-template-columns: 260px auto;
+    grid-template-rows: 80px 36px auto;
+    grid-template-areas: "menu header"
+                         "menu sub-header"
+                         "menu board";
   }
+.icon-sm {
+  font-size: 1.2em !important;
+}
+
+.icon {
+  margin-right: 6px;
+}
+
+.board-ui {
+  grid-area: board;
+  padding: 24px;
+  display: flex;
+  align-items: baseline;
+  overflow-x: scroll; 
+}
