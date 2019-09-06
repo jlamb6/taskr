@@ -6,6 +6,8 @@ import "./button.less"
 export enum ButtonTypes {
     DEFAULT = 'default',
     ICON = 'icon',
+    NO_BORDER = "no-border",
+    NO_BORDER_ICON = "no-border-icon",
     PRIMARY = 'primary',
     DANGER = 'danger',
     DISABLED = 'disabled',
@@ -33,7 +35,7 @@ export class Button extends React.Component<ButtonProps> {
 
     public render() {
 
-        const { title, buttonType, buttonSize, fontColor, ...rest } = this.props;
+        const { title, buttonType, buttonSize, fontColor, backgroundColor, ...rest } = this.props;
         const className = classNames('button', 
             buttonSize || ButtonSizes.DEFAULT,
             fontColor || "inherit",
@@ -43,7 +45,7 @@ export class Button extends React.Component<ButtonProps> {
         );
 
         return(
-            <button type="button" className={className}>
+            <button type="button" style={{background: backgroundColor || "inherit"}} className={className}>
                 { (this.props.iconName) ? Icon({name: this.props.iconName, small: true, color: IconColor.GREY}): null }
                 {this.props.title}
             </button>
