@@ -33,6 +33,7 @@ class App extends Component{
     const desc = "This board is for project management relating to software development";
     const title = "Web Development";
     const lastActivity = "Mon Aug 28, 2019";
+
     return(
       <div className="App">
         <SideMenu />
@@ -43,7 +44,7 @@ class App extends Component{
           <List name="List Three" cards={cardsGroupThree} />
         </div>  
       </div>
-    );
+    )
   }
 }
 
