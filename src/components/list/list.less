@@ -1,15 +1,69 @@
 .list {
-    min-width: 280px;
-    border: 1px solid #707070;
+    min-width: 245px;
     border-radius: 4px;
-    padding: 14px;
+    padding: 14px 10px;
     margin-right: 14px;
+    /*background-color: #fff;
+    box-shadow:  0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);*/
+    border: 1px solid transparent;
+    transition: .3s;
+}
+
+.list:hover {
+    border: 1px solid rgba(105, 105, 105, .3); 
 }
 
 .list__header {
-    padding: 0 0 14px;
+    padding: 0 0 14px 10px;
+    color: #26292f;
+    font-weight: 600;
 }
 
 .list__body {
-    margin-bottom: 14px;
+    margin-bottom: 6px;
+}
+
+.list__new-task {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    padding: 8px 10px;
+    color: #696969;
+    cursor: pointer;
+    transition: .3s;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+.list__new-task:hover {
+    border-color: rgba(105, 105, 105, .3);
+    background-color: rgba(105, 105, 105, .12);
+    color: #26292f;
+}
+
+.list__new-task span {
+    padding-left: 4px;
+}
+
+.list__task-desc {
+    height: 64px;
+    padding: 6px 8px;
+    background-color: #fff;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    box-shadow:  0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+
+.list__task-desc textarea {
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    border: none;
+    resize: none;
+    background: none;
+    font-family: inherit;
+}
+
+.list__task-desc textarea:focus {
+    outline: none;
 }
