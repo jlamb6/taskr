@@ -1,4 +1,5 @@
 import * as React from "react"
+import { useState, useEffect } from "react"
 import Card from "../card/card"
 import CardInterface from "../../common/cardInterface"
 import { Icon, IconColor } from "../../common/icons"
@@ -9,12 +10,34 @@ import "./list.less"
 export interface ListProps {
     id: string,
     name: string,
-    cards: [CardInterface]
+    cards: CardInterface[]
 }
 
-// <Button title="Add new task" buttonSize={ButtonSizes.FULLWIDTH} buttonType={ButtonTypes.NO_BORDER_ICON} iconName="Add" />
+/* this is only here as a reference
+export interface CardInterface {
+    id: string;
+    listId: string;
+    title: string;
+    dateCreated: Date;
+    members: [string];
+    activity: [string];
+    checklist?: [string];
+    dueDate?: Date;
+}
+*/
 
 export const List = ( props: ListProps ) => {
+
+    //const [ cards, setCards ] = useState(props.cards);
+
+    const defaultCardOptions = {
+        id: "11111",
+        listId: "11",
+        title: "Default Title",
+        members: ["Jake Lamb"],
+        activity: ["Created today"],
+        dateCreated: new Date,
+    }
 
     const createNewTask = (event) => {
         const target = event.currentTarget;
@@ -22,17 +45,27 @@ export const List = ( props: ListProps ) => {
         const template = parentList.querySelector(".list__task-template");
         template.classList.remove("hide");
         template.querySelector("textarea").focus();
-        target.classList.add("hide");   
+        target.classList.add("hide");
+    }
+
+    const createCard = (title: string) => {
+        const newCard = defaultCardOptions;
+        return <Card id={newCard.id} listId={newCard.listId} title={title} dateCreated={newCard.dateCreated} members={["Jake Lamb"]} activity={["Created today"]} />;
     }
 
     const addNewTask = (event) => {
         const target = event.target;
         const parentEle = target.parentElement.parentElement;
         const taskTitle = parentEle.querySelector("textarea").value;
+        const list = parentEle.parentElement.parentElement;
+        let newTask = defaultCardOptions;
         parentEle.classList.add("hide");
         parentEle.querySelector("textarea").value = "";
-        parentEle.parentElement.parentElement.querySelector(".list__new-task").classList.remove("hide");
+        list.querySelector(".list__new-task").classList.remove("hide");
+        newTask.title = taskTitle;
+        const { id, title, listId, members, activity, dateCreated } = newTask;
         console.log(taskTitle);
+        console.log(list);
     }
 
     const addNewTaskOnEnter = (event) => { 
@@ -78,7 +111,7 @@ export const List = ( props: ListProps ) => {
                 </div>
             </div>
         </div>
-)
+    )
 }
 
 export default List

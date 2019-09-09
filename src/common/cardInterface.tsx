@@ -5,9 +5,9 @@ export interface CardInterface {
     listId: string;
     title: string;
     dateCreated: Date;
-    members: [string];
-    activity: [string];
-    checklist?: [string];
+    members: string[];
+    activity: string[];
+    checklist?: string[];
     dueDate?: Date;
 }
 
