@@ -1,7 +1,9 @@
 // action types
 export const ADD_TASK = "ADD_TASK"
 export const VIEW_TASK = "VIEW_TASK"
+export const GRAB_TASK_DETAILS = "GRAB_TASK_DETAILS"
 
+export const VIEW_LISTS = "VIEW_LISTS"
 export const ADD_LIST = "ADD_LIST"
 
 export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER'
@@ -18,6 +20,10 @@ export function addTask(taskTitle) {
     return { type: ADD_TASK, taskTitle }
 }
 
+export function grabTask(id) {
+    return { type: GRAB_TASK_DETAILS, id }
+}
+
 export function addList(listTitle) {
     return { type: ADD_LIST, listTitle }
 }
@@ -28,4 +34,8 @@ export function setVisibilityFilter(filter) {
 
 export function viewTask(id) {
     return { type: VIEW_TASK, id }
+}
+
+export function viewLists(lists) {
+    return {type: VIEW_LISTS, lists }
 }

@@ -2,9 +2,10 @@ import { connect } from "react-redux"
 import { viewTask } from "../actions/actions"
 import List from "../components/list/list"
 
-const mapStateToProps = (state, listId) => {
+const mapStateToProps = (state, listId) => {    
+    const list = state.lists.map(cur => cur.listId === listId)[0];
     return {
-        tasks: state.tasks.map(cur => cur.listId === listId)
+        tasks: state.tasks.map(cur => list.tasks.includes(cur.id))
     }
 }
 

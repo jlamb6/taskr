@@ -5,6 +5,8 @@ import SideMenu from "../src/components/menu/menu-side"
 import BoardHeader from "./components/menu/board-header"
 import List from "../src/components/list/list"
 import CardInterface from "../src/common/cardInterface"
+import { ListSubheader } from "@material-ui/core";
+import { connect } from "react-redux"
 
 const newcard = (id, lid, title, dc, members, activity) => {
   let obj = {
@@ -29,9 +31,7 @@ const cardsGroupOne = [cardOne, cardTwo];
 const cardsGroupTwo = [cardOne, cardTwo, cardThree, cardFour, cardFive];
 const cardsGroupThree = [cardOne, cardFive, cardSix];
 
-class App extends Component{
-
-  render(){
+const App = (props) => {
     const desc = "This board is for project management relating to software development";
     const title = "Web Development";
     const lastActivity = "Mon Aug 28, 2019";
@@ -41,14 +41,18 @@ class App extends Component{
         <SideMenu />
         <BoardHeader boardName={title} boardDescription={desc} lastActivity={lastActivity} />
         <div className="board-ui">
-          <List id="12332111" name="List One" cards={cardsGroupOne} />
-          <List id="345543" name="List Two" cards={cardsGroupTwo} />
-          <List id="98798789" name="List Three" cards={cardsGroupThree} />
+          {props.lists.map(list => (
+            <List name={list.name} id={list.id} cards={list.tasks} key={list.id} />
+          ))}
         </div>  
       </div>
     )
-  }
 }
 
-//export default hot(module)(App);
-export default App
+const mapStateToProps = (state, ownProps) => {
+  return { lists: state.lists }
+}
+
+export default connect(
+  mapStateToProps
+)(App)

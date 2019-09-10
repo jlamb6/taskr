@@ -6,11 +6,12 @@ import { Icon, IconColor } from "../../common/icons"
 import { Button, ButtonTypes, ButtonSizes } from "../../common/button"
 import Add from "@material-ui/icons/Add"
 import "./list.less"
+import { connect } from "react-redux"
 
 export interface ListProps {
     id: string,
     name: string,
-    cards: CardInterface[]
+    cards: string[]
 }
 
 /* this is only here as a reference
@@ -27,8 +28,6 @@ export interface CardInterface {
 */
 
 export const List = ( props: ListProps ) => {
-
-    //const [ cards, setCards ] = useState(props.cards);
 
     const defaultCardOptions = {
         id: "11111",
@@ -50,7 +49,7 @@ export const List = ( props: ListProps ) => {
 
     const createCard = (title: string) => {
         const newCard = defaultCardOptions;
-        return <Card id={newCard.id} listId={newCard.listId} title={title} dateCreated={newCard.dateCreated} members={["Jake Lamb"]} activity={["Created today"]} />;
+        return <Card id={newCard.id} listId={newCard.listId} title={title} dateCreated={newCard.dateCreated} members={["Jake Lamb"]} activity={["Created today"]} key={newCard.id}/>;
     }
 
     const addNewTask = (event) => {
@@ -93,7 +92,9 @@ export const List = ( props: ListProps ) => {
                 <div>{props.name}</div>
             </div>
             <div className="list__body">
-                {props.cards.map(cur => <Card listId={cur.listId} id={cur.id} title={cur.title} dateCreated={cur.dateCreated} members={cur.members} activity={cur.activity} key={cur.id}/>)}
+                {props.cards.map(cur => 
+                    <Card id={cur} key={cur} />
+                )}
                 <div className="list__task-template hide">
                     <div className="list__task-desc">
                         <textarea onKeyDown={addNewTaskOnEnter}></textarea>
@@ -114,4 +115,18 @@ export const List = ( props: ListProps ) => {
     )
 }
 
-export default List
+
+const mapStateToProps = (state, ownProps) => {
+    //console.log(state.task);
+    return { task: state.task }
+}
+
+/*
+{props.cards.map(cur => 
+                    <Card listId={cur.listId} id={cur.id} title={cur.title} dateCreated={cur.dateCreated} members={cur.members} activity={cur.activity} key={cur.id}/>
+                )}
+*/
+
+export default connect(mapStateToProps)(List)
+
+//export default List
