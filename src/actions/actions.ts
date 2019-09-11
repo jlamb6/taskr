@@ -6,6 +6,8 @@ export const GRAB_TASK_DETAILS = "GRAB_TASK_DETAILS"
 export const VIEW_LISTS = "VIEW_LISTS"
 export const ADD_LIST = "ADD_LIST"
 
+export const VIEW_BOARD = "VIEW_BOARD"
+
 export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER'
 
 // other constants
@@ -38,4 +40,8 @@ export function viewTask(id) {
 
 export function viewLists(lists) {
     return {type: VIEW_LISTS, lists }
+}
+
+export function viewBoard(id) {
+    return { type: VIEW_BOARD, id }
 }

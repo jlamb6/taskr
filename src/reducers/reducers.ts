@@ -1,8 +1,19 @@
-import { SET_VISIBILITY_FILTER, VisibilityFilters, ADD_LIST, VIEW_LISTS, GRAB_TASK_DETAILS } from '../actions/actions'
+import { SET_VISIBILITY_FILTER, VisibilityFilters, ADD_LIST, VIEW_LISTS, GRAB_TASK_DETAILS, VIEW_BOARD } from '../actions/actions'
 import { ADD_TASK } from "../actions/actions"
 import { combineReducers } from 'redux'
 
+const dateOne = new Date("9/1/2019");
+
 const initialState = {
+    visibilityFilter: VisibilityFilters.SHOW_ALL,
+    board: {
+        id: "111",
+        name: "Web Development",
+        desc: "This board is for project management relating to software development",
+        members: [
+            "Jake Lamb"
+        ]
+    },
     lists: [
         {
             name: "In Progress",
@@ -24,7 +35,11 @@ const initialState = {
     tasks: [
         {
             id: "123",
-            title: "Go to store"
+            title: "Go to store",
+            dateCreated: dateOne,
+            members: ["Jake Lamb"],
+            activity: [`Created on ${dateOne}.`],
+            checklist: []
         },
         {
             id: "234",
@@ -48,6 +63,16 @@ function visibilityFilter(state = SHOW_ALL, action) {
   }
 }
 
+function board(state = initialState.board, action) {
+    switch (action.type) {
+        case VIEW_BOARD:
+            return { board: state }
+    
+        default:
+            return state
+    }
+}
+
 function tasks(state = initialState.tasks, action) {
   switch (action.type) {
     case ADD_TASK:
@@ -59,10 +84,10 @@ function tasks(state = initialState.tasks, action) {
         }
       ]
     case GRAB_TASK_DETAILS:
+        console.log(`results from action`);
+        console.log(state.filter(cur => cur.id === action.id)[0]);
         return [
-            {
-                task: state.filter(cur => cur.id === action.id)[0]
-            }
+                state.filter(cur => cur.id === action.id)[0]
         ]
     default:
       return state
@@ -90,7 +115,8 @@ function lists(state = initialState.lists, action) {
 const taskApp = combineReducers({
   visibilityFilter,
   tasks,
-  lists
+  lists,
+  board
 })
 
 export default taskApp

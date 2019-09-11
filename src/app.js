@@ -39,7 +39,7 @@ const App = (props) => {
     return(
       <div className="App">
         <SideMenu />
-        <BoardHeader boardName={title} boardDescription={desc} lastActivity={lastActivity} />
+        <BoardHeader boardName={props.board.name} boardDescription={props.board.desc} lastActivity={lastActivity} />
         <div className="board-ui">
           {props.lists.map(list => (
             <List name={list.name} id={list.id} cards={list.tasks} key={list.id} />
@@ -50,7 +50,8 @@ const App = (props) => {
 }
 
 const mapStateToProps = (state, ownProps) => {
-  return { lists: state.lists }
+  console.log(state.board);
+  return { lists: state.lists, board: state.board }
 }
 
 export default connect(

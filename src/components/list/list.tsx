@@ -14,24 +14,10 @@ export interface ListProps {
     cards: string[]
 }
 
-/* this is only here as a reference
-export interface CardInterface {
-    id: string;
-    listId: string;
-    title: string;
-    dateCreated: Date;
-    members: [string];
-    activity: [string];
-    checklist?: [string];
-    dueDate?: Date;
-}
-*/
-
 export const List = ( props: ListProps ) => {
 
     const defaultCardOptions = {
         id: "11111",
-        listId: "11",
         title: "Default Title",
         members: ["Jake Lamb"],
         activity: ["Created today"],
@@ -49,7 +35,7 @@ export const List = ( props: ListProps ) => {
 
     const createCard = (title: string) => {
         const newCard = defaultCardOptions;
-        return <Card id={newCard.id} listId={newCard.listId} title={title} dateCreated={newCard.dateCreated} members={["Jake Lamb"]} activity={["Created today"]} key={newCard.id}/>;
+        return <Card id={newCard.id} title={title} dateCreated={newCard.dateCreated} members={["Jake Lamb"]} activity={["Created today"]} key={newCard.id}/>;
     }
 
     const addNewTask = (event) => {
@@ -62,7 +48,7 @@ export const List = ( props: ListProps ) => {
         parentEle.querySelector("textarea").value = "";
         list.querySelector(".list__new-task").classList.remove("hide");
         newTask.title = taskTitle;
-        const { id, title, listId, members, activity, dateCreated } = newTask;
+        const { id, title, members, activity, dateCreated } = newTask;
         console.log(taskTitle);
         console.log(list);
     }
@@ -115,18 +101,8 @@ export const List = ( props: ListProps ) => {
     )
 }
 
-
 const mapStateToProps = (state, ownProps) => {
-    //console.log(state.task);
     return { task: state.task }
 }
 
-/*
-{props.cards.map(cur => 
-                    <Card listId={cur.listId} id={cur.id} title={cur.title} dateCreated={cur.dateCreated} members={cur.members} activity={cur.activity} key={cur.id}/>
-                )}
-*/
-
 export default connect(mapStateToProps)(List)
-
-//export default List
