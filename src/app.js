@@ -40,7 +40,7 @@ const App = (props) => {
       <div className="App">
         <SideMenu />
         <BoardHeader boardName={props.board.name} boardDescription={props.board.desc} lastActivity={lastActivity} />
-        <div className="board-ui">
+        <div className="board-ui dragscroll">
           {props.lists.map(list => (
             <List name={list.name} id={list.id} cards={list.tasks} key={list.id} />
           ))}

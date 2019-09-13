@@ -3,3 +3,10 @@
 body {
     font-family: "Roboto", sans-serif;
 }
+
+.dragscroll {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap; /* this is critical */
+    user-select: none;
+  }

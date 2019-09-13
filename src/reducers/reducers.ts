@@ -30,6 +30,30 @@ const initialState = {
             tasks: [
                 "234", "345"
             ]
+        },
+        {
+            name: "In Queue",
+            id: "1235",
+            boardPosition: "2",
+            tasks: [
+                "234", "345"
+            ]
+        },
+        {
+            name: "In Queue",
+            id: "1236",
+            boardPosition: "2",
+            tasks: [
+                "234", "345"
+            ]
+        },
+        {
+            name: "In Queue",
+            id: "1237",
+            boardPosition: "2",
+            tasks: [
+                "234", "345"
+            ]
         }
     ],
     tasks: [
