@@ -51,7 +51,7 @@ const App = (props) => {
 
 const mapStateToProps = (state, ownProps) => {
   console.log(state.board);
-  return { lists: state.lists, board: state.board }
+  return { lists: state.board.lists, board: state.board.board }
 }
 
 export default connect(

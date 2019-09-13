@@ -14,6 +14,12 @@ const initialState = {
             "Jake Lamb"
         ]
     },
+    user: {
+        id: "43234",
+        name: "Jacob Lamb",
+        initials: "JL"
+    },
+    creatingNewTask: false,
     lists: [
         {
             name: "In Progress",
@@ -34,22 +40,6 @@ const initialState = {
         {
             name: "In Queue",
             id: "1235",
-            boardPosition: "2",
-            tasks: [
-                "234", "345"
-            ]
-        },
-        {
-            name: "In Queue",
-            id: "1236",
-            boardPosition: "2",
-            tasks: [
-                "234", "345"
-            ]
-        },
-        {
-            name: "In Queue",
-            id: "1237",
             boardPosition: "2",
             tasks: [
                 "234", "345"
@@ -87,11 +77,10 @@ function visibilityFilter(state = SHOW_ALL, action) {
   }
 }
 
-function board(state = initialState.board, action) {
+function board(state = { board: initialState.board, user: initialState.user, lists: initialState.lists }, action) {
     switch (action.type) {
         case VIEW_BOARD:
-            return { board: state }
-    
+            return state
         default:
             return state
     }
