@@ -9,4 +9,79 @@ body {
     overflow-y: hidden;
     white-space: nowrap; /* this is critical */
     user-select: none;
-  }
+}
+
+.new-button {
+    position: relative;
+    background: linear-gradient(to right top, rgb(255, 82, 99) 0%, rgb(255, 115, 129) 35%, rgb(252, 189, 1) 100%);
+    color: white;
+    border: none;
+    padding: 6px 8px 5px 4px;
+    display: inline-flex;
+    align-items: center;
+    margin-right: 12px;
+    cursor: pointer;
+    transition: 0.2s;
+    transform: scale(.831);
+    border-radius: 4px;
+}
+
+.new-button__actions {
+    position: absolute;
+    width: 220px;
+    top: 40px;
+    right: 0;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 12px 0;
+    border: 1px solid #d5dce0;    
+    box-shadow: 0 0 0 1px rgba(100,111,121,.15), 0 5px 20px 0 rgba(21,27,38,.08);
+    color: #151b26;
+}
+
+.new-button__action-item {
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+}
+
+.new-button__action-item > svg {
+    margin-right: 14px;
+}
+
+.new-button__action-item:hover {
+    color: #fff;
+    background: linear-gradient(to right top, rgb(255, 82, 99) 0%, rgb(255, 115, 129) 35%, rgb(252, 189, 1) 100%);
+}
+
+.new-button__form-container {
+    position: absolute;
+    width: 260px;
+    top: 40px;
+    right: 0;
+    background-color: #fff;
+    border-radius: 4px;
+    padding: 12px 14px;
+    border: 1px solid #d5dce0;    
+    box-shadow: 0 0 0 1px rgba(100,111,121,.15), 0 5px 20px 0 rgba(21,27,38,.08);
+    color: #151b26;
+}
+
+.new-button__form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    height: 64px;
+    min-height: 64px;
+    padding: 6px 8px;
+    background-color: #fff;
+    border: none;
+    border-radius: 4px;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    font-size: 16px;
+    font-family: inherit;
+}
+
+.new-button__form textarea:focus {
+    outline: none;
+}

@@ -1,10 +1,9 @@
 import * as React from "react"
 import "./menu.less"
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneOutlined';
 import UserInitials from "../../common/user-circle";
 import { Icon, IconColor } from "../../common/icons"
 import { Button, ButtonTypes, ButtonSizes } from "../../common/button"
+import AddNewButton from "../../common/addNewButton"
 
 export enum FilterTypes {
     INCOMPLETE = "incomplete",
@@ -45,7 +44,7 @@ class BoardHeader extends React.Component<HeaderProps> {
                         </div>
                     </div>
                     <div className="board-header__section-two">
-                        <Button title="New" buttonType={ButtonTypes.NO_BORDER_ICON} iconName="Add" fontColor="white" backgroundColor="linear-gradient(to top right, #ff5263 0%, #ff7381 35%, #fcbd01 100%)" buttonSize={ButtonSizes.MEDIUM} />
+                        <AddNewButton />
                         {Icon({name: "InfoOutlined", color: IconColor.GREY})}
                         {Icon({name: "NotificationsNoneOutlined", color: IconColor.GREY})}
                         <UserInitials userName="Jacob Lamb" initials="JL" id="1234"/>

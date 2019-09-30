@@ -4,8 +4,6 @@ import "./card.less"
 import { connect } from "react-redux"
 import { grabTask } from "../../actions/actions"
 
-//const view = (id) => ({ type: 'GRAB_TASK_DETAILS', id: id });
-
 export const Card = (props) => {
 
     return(
@@ -25,19 +23,4 @@ export const Card = (props) => {
     )
 }
 
-
-const mapStateToProps = (state, ownProps) => {
-    console.log(`logging ownprops`);
-    console.log(ownProps);
-    const task = state.tasks.filter(cur => cur.id === ownProps.id)[0];
-    console.log(task);
-    return { task: task }
-}
-/*
-const mapDispatchToProps = (dispatch, ownProps) => {
-    return {
-        view: () => dispatch(view(ownProps.id))
-    }
-}
-*/
-export default connect(mapStateToProps)(Card)
+export default Card

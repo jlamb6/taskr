@@ -12,58 +12,34 @@ const initialState = {
         desc: "This board is for project management relating to software development",
         members: [
             "Jake Lamb"
+        ],
+        user: {
+            id: "43234",
+            name: "Jacob Lamb",
+            initials: "JL"
+        },
+    },
+    lists: {
+        curListID: 11111,
+        curTaskID: 11111,
+        lists: [
+            {
+                name: "In Progress",
+                id: "123",
+                boardPosition: "1",
+                tasks: [
+                    {
+                        id: "123",
+                        title: "Go to store",
+                        dateCreated: dateOne,
+                        members: ["Jake Lamb"],
+                        activity: [`Created on ${dateOne}.`],
+                        checklist: []
+                    }
+                ]
+            }
         ]
-    },
-    user: {
-        id: "43234",
-        name: "Jacob Lamb",
-        initials: "JL"
-    },
-    creatingNewTask: false,
-    lists: [
-        {
-            name: "In Progress",
-            id: "123",
-            boardPosition: "1",
-            tasks: [
-                "123", "234", "345"
-            ]
-        },
-        {
-            name: "In Queue",
-            id: "1234",
-            boardPosition: "2",
-            tasks: [
-                "234", "345"
-            ]
-        },
-        {
-            name: "In Queue",
-            id: "1235",
-            boardPosition: "2",
-            tasks: [
-                "234", "345"
-            ]
-        }
-    ],
-    tasks: [
-        {
-            id: "123",
-            title: "Go to store",
-            dateCreated: dateOne,
-            members: ["Jake Lamb"],
-            activity: [`Created on ${dateOne}.`],
-            checklist: []
-        },
-        {
-            id: "234",
-            title: "Buy Milk"
-        },
-        {
-            id: "345",
-            title: "Pick up drugs"
-        }
-    ]
+    }
 }
 
 const { SHOW_ALL } = VisibilityFilters
@@ -77,7 +53,7 @@ function visibilityFilter(state = SHOW_ALL, action) {
   }
 }
 
-function board(state = { board: initialState.board, user: initialState.user, lists: initialState.lists }, action) {
+function board(state = initialState.board, action) {
     switch (action.type) {
         case VIEW_BOARD:
             return state
@@ -86,40 +62,35 @@ function board(state = { board: initialState.board, user: initialState.user, lis
     }
 }
 
-function tasks(state = initialState.tasks, action) {
-  switch (action.type) {
-    case ADD_TASK:
-      return [
-        ...state,
-        {
-          taskTitle: action.taskTitle,
-          completed: false
-        }
-      ]
-    case GRAB_TASK_DETAILS:
-        console.log(`results from action`);
-        console.log(state.filter(cur => cur.id === action.id)[0]);
-        return [
-                state.filter(cur => cur.id === action.id)[0]
-        ]
-    default:
-      return state
-  }
-}
-
 function lists(state = initialState.lists, action) {
     switch (action.type) {
         case ADD_LIST:
-            return [
-                ...state,
-                {
-                    name: action.listTitle
+            const newList = {
+                name: action.title,
+                id: `${state.curListID++}`,
+                tasks: []
+            }
+            console.log("logging from add list reducer")
+            console.log(newList);
+            return Object.assign({}, state, {lists: [...state.lists, newList]})
+        case ADD_TASK:
+            const newTask = {
+                id: `${state.curTaskID++}`,
+                title: action.title,
+                dateCreated: dateOne,
+                members: [],
+                activity: [`Created on ${dateOne}.`],
+                checklist: []
+            }
+            const newListArr = state.lists.map(list => {
+                if (list.id === action.listId) {
+                    list.tasks.push(newTask);
                 }
-            ]
-        case VIEW_LISTS:
-            return [
-                ...state
-            ]
+                return list;
+            });
+            console.log("logging from add task reducer")
+            console.log(newListArr);
+            return Object.assign({}, state, {lists: newListArr})
         default:
             return state
     }
@@ -127,7 +98,6 @@ function lists(state = initialState.lists, action) {
 
 const taskApp = combineReducers({
   visibilityFilter,
-  tasks,
   lists,
   board
 })

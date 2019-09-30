@@ -18,16 +18,16 @@ export const VisibilityFilters = {
 }
 
 // action creators
-export function addTask(taskTitle) {
-    return { type: ADD_TASK, taskTitle }
+export function addTask(title, listId) {
+    return { type: ADD_TASK, title, listId }
 }
 
 export function grabTask(id) {
     return { type: GRAB_TASK_DETAILS, id }
 }
 
-export function addList(listTitle) {
-    return { type: ADD_LIST, listTitle }
+export function addList(title) {
+    return { type: ADD_LIST, title }
 }
 
 export function setVisibilityFilter(filter) {
