@@ -10,7 +10,6 @@ export const AddButton = (props) => {
     const [formIsOpen, setFormIsOpen] = useState(false);
     const [text, setText] = useState("");
     const list = props.list;
-    const buttonText = list ? "Add another task" : "Add another list ";
     const placeholderText = list ? "Enter a title for the task..." : "Enter a title for the list...";
 
     const handleKeystroke = (event) => {
@@ -28,7 +27,7 @@ export const AddButton = (props) => {
         return (
             <div className="list__new-task" onClick={() => setFormIsOpen(true)}>
                 <Add height="12px" width="12px" fill="#696969" />
-                <span>{buttonText}</span>
+                <span>{props.text}</span>
             </div>
         )
     }

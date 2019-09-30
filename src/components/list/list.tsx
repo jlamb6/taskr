@@ -7,6 +7,7 @@ import { Button, ButtonTypes, ButtonSizes } from "../../common/button"
 import Add from "@material-ui/icons/Add"
 import "./list.less"
 import AddButton from "../../common/addButton"
+import { Droppable } from "react-beautiful-dnd"
 
 export interface ListProps {
     id: string,
@@ -17,19 +18,24 @@ export interface ListProps {
 export const List = ( props: ListProps ) => {
 
     return (
-        <div className="list">
-            <div className="list__header">
-                <div>{props.name}</div>
-            </div>
-            <div className="list__body">
-                {props.tasks.map(cur => 
-                    <Card task={cur} key={cur.id} />
-                )}
-            </div>
-            <div className='list__footer'>
-                <AddButton list={props.id} />
-            </div>
-        </div>
+        <Droppable droppableId={props.id}>
+            {(provided, ) => (
+                <div className="list" {...provided.droppableProps} ref={provided.innerRef} >
+                    <div className="list__header">
+                        <div>{props.name}</div>
+                    </div>
+                    <div className="list__body">
+                        {props.tasks.map((cur, index) => 
+                            <Card task={cur} key={cur.id} index={index} />
+                        )}
+                    </div>
+                    <div className='list__footer'>
+                        <AddButton list={props.id} text={(props.tasks.length > 1) ? "Add another tast" : "Add a task"} />
+                    </div>
+                    {provided.placeholder}
+                </div>
+            )}
+        </Droppable>
     )
 }
 

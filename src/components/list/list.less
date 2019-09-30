@@ -1,4 +1,5 @@
 .list {
+    position: relative;
     min-width: 245px;
     border-radius: 4px;
     padding: 14px 10px;
@@ -20,10 +21,23 @@
 }
 
 .list__body {
+    //margin-bottom: 48px;
     margin-bottom: 6px;
 }
 
+/* 
+    Added this on Sep 29 to solve the problem of the button loosing its place when cards were dragged
+
+.list__footer {
+    position: absolute;
+    bottom: 0;
+    width: calc(100% - 20px);
+    display: flex;
+    margin-bottom: 12px;
+}
+*/
 .list__new-task {
+    //width: 100%;
     font-size: 14px;
     display: flex;
     align-items: center;

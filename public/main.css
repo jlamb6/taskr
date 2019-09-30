@@ -24,6 +24,7 @@ body {
     transition: 0.2s;
     transform: scale(.831);
     border-radius: 4px;
+    z-index: 10;
 }
 
 .new-button__actions {
@@ -37,6 +38,7 @@ body {
     border: 1px solid #d5dce0;    
     box-shadow: 0 0 0 1px rgba(100,111,121,.15), 0 5px 20px 0 rgba(21,27,38,.08);
     color: #151b26;
+    z-index: 100;
 }
 
 .new-button__action-item {
@@ -65,6 +67,11 @@ body {
     border: 1px solid #d5dce0;    
     box-shadow: 0 0 0 1px rgba(100,111,121,.15), 0 5px 20px 0 rgba(21,27,38,.08);
     color: #151b26;
+    cursor: pointer;
+}
+
+.new-button__form-container button {
+    font-size: 16px;
 }
 
 .new-button__form textarea {

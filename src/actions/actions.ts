@@ -5,6 +5,7 @@ export const GRAB_TASK_DETAILS = "GRAB_TASK_DETAILS"
 
 export const VIEW_LISTS = "VIEW_LISTS"
 export const ADD_LIST = "ADD_LIST"
+export const SORT = "SORT"
 
 export const VIEW_BOARD = "VIEW_BOARD"
 
@@ -44,4 +45,16 @@ export function viewLists(lists) {
 
 export function viewBoard(id) {
     return { type: VIEW_BOARD, id }
+}
+
+/*
+    @param
+    listIdStart = droppableIdStart,
+    listIdEnd = droppableIdEnd,
+    indexStart = droppableIndexStart,
+    indexEnd = droppableIndexEnd,
+    taskId = draggableId
+*/
+export function sort(listIdStart, listIdEnd, indexStart, indexEnd, taskId) {
+    return { type: SORT, listIdStart, listIdEnd, indexStart, indexEnd, taskId }
 }

@@ -19,13 +19,12 @@ export const AddNewButton = (props) => {
     
     const handleKeystroke = (event) => {
         if (event.keyCode === 13) {
-            const target = event.currentTarget;
-            target.value = "";
-            setIsFormOpen(false);
+            handleAddList();
         }
-        else {
-            setText(event.currentTarget.value);
-        }
+    }
+
+    const handleChange = (event) => {
+        setText(event.currentTarget.value);
     }
 
     const openForm = (event, list: string) => {
@@ -93,7 +92,8 @@ export const AddNewButton = (props) => {
                     <div className="new-button__form">
                         <Textarea 
                             placeholder={placeholderText} 
-                            onChange={(e) => handleKeystroke(e)}
+                            onChange={handleChange}
+                            onKeyDown={handleKeystroke}
                             value={text}
                             autoFocus
                             style={{
