@@ -22,6 +22,11 @@ export const AddButton = (props) => {
         setText(event.currentTarget.value);
     }
 
+    const handleBlur = (event) => {
+        setText("");
+        setFormIsOpen(false);
+    }
+
     const renderAddButton = () => {
         
         return (
@@ -41,6 +46,7 @@ export const AddButton = (props) => {
                         placeholder={placeholderText} 
                         onChange={(e) => handleOnChange(e)}
                         onKeyDown={(e) => handleKeystroke(e)}
+                        onBlur={handleBlur}
                         value={text}
                         autoFocus
                         style={{
@@ -51,8 +57,8 @@ export const AddButton = (props) => {
                     </Textarea>
                 </div>
                 <div className="list__task-actions">
-                    <Button title="Add Task" buttonType={ButtonTypes.NO_BORDER} backgroundColor="#5aac44" fontColor="white" onClick={handleAddTask}/>
-                    <Button title="Cancel" buttonType={ButtonTypes.NO_BORDER} backgroundColor="#fd612c" fontColor="white" onClick={() => { setFormIsOpen(false); setText(""); }} />
+                    <Button title="Add Task" buttonType={ButtonTypes.NO_BORDER} backgroundColor="#5aac44" fontColor="white" onMouseDown={handleAddTask}/>
+                    <Button title="Cancel" buttonType={ButtonTypes.NO_BORDER} backgroundColor="#fd612c" fontColor="white" />
                 </div>
             </div>
         )

@@ -29,13 +29,14 @@ interface ButtonProps {
     fontColor?: string;
     buttonSize?: ButtonSizes;
     onClick?: React.MouseEventHandler;
+    onMouseDown?: React.MouseEventHandler;
 }
 
 export class Button extends React.Component<ButtonProps> {
 
     public render() {
 
-        const { title, buttonType, buttonSize, fontColor, backgroundColor, onClick, ...rest } = this.props;
+        const { title, buttonType, buttonSize, fontColor, backgroundColor, onClick, onMouseDown, ...rest } = this.props;
         const className = classNames('button', 
             buttonSize || ButtonSizes.DEFAULT,
             fontColor || "inherit",
@@ -45,7 +46,7 @@ export class Button extends React.Component<ButtonProps> {
         );
 
         return(
-            <button onClick={onClick} type="button" style={{background: backgroundColor || "inherit"}} className={className}>
+            <button onMouseDown={onMouseDown} onClick={onClick} type="button" style={{background: backgroundColor || "inherit"}} className={className}>
                 { (this.props.iconName) ? Icon({name: this.props.iconName, small: true, color: IconColor.GREY}): null }
                 {this.props.title}
             </button>

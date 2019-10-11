@@ -1,17 +1,22 @@
 .list {
     position: relative;
-    min-width: 245px;
-    border-radius: 4px;
-    padding: 14px 10px;
+    height: 100%;
+    box-sizing: border-box;
+    min-width: 265px;
     margin-right: 14px;
     /*background-color: #fff;
     box-shadow:  0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);*/
-    border: 1px solid transparent;
-    transition: .3s;
 }
 
-.list:hover {
+.list:hover .list__container {
     border: 1px solid rgba(105, 105, 105, .3); 
+}
+
+.list__container {
+    border-radius: 4px;
+    padding: 14px 10px;
+    border: 1px solid transparent;
+    transition: .3s;
 }
 
 .list__header {
@@ -21,30 +26,17 @@
 }
 
 .list__body {
-    //margin-bottom: 48px;
     margin-bottom: 6px;
 }
 
-/* 
-    Added this on Sep 29 to solve the problem of the button loosing its place when cards were dragged
-
-.list__footer {
-    position: absolute;
-    bottom: 0;
-    width: calc(100% - 20px);
-    display: flex;
-    margin-bottom: 12px;
-}
-*/
 .list__new-task {
-    //width: 100%;
     font-size: 14px;
     display: flex;
     align-items: center;
     padding: 8px 10px;
     color: #696969;
     cursor: pointer;
-    transition: .3s;
+    //transition: .3s; // having this transition makes for a weird effect when rerendered
     border: 1px solid transparent;
     border-radius: 4px;
 }
