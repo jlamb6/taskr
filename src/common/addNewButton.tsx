@@ -53,17 +53,17 @@ export const AddNewButton = (props) => {
 
     const renderAddButton = () => {
         return (
-            <div className="new-button" onClick={toggleList} >
+            <button className="new-button" onClick={toggleList} >
                 <Icon name={"Add"} small={true} />
                 <span>{buttonText}</span>
-            </div>
+            </button>
         )
     }
 
     const renderList = () => {
 
         return (
-            <div className="new-button" onClick={toggleList} onBlur={toggleList}>
+            <button className="new-button" onClick={toggleList} onBlur={toggleList}>
                 <Icon name={"Add"} small={true} />
                 <span>{buttonText}</span>
                 <div className="new-button__actions">
@@ -75,7 +75,7 @@ export const AddNewButton = (props) => {
                         <div className="new-button__action-item"><Icon name="PersonAddOutlined" small={true} />Invite</div>
                     </div>
                 </div>
-            </div>
+            </button>
         )
     }
 
@@ -90,7 +90,7 @@ export const AddNewButton = (props) => {
 
     const renderListForm = () => {
         return (
-            <div className="new-button" onClick={toggleList}>
+            <button className="new-button" onClick={toggleList}>
                 <Icon name={"Add"} small={true} />
                 <span>{buttonText}</span>
                 <div className="new-button__form-container" onClick={(e) => e.stopPropagation()}>
@@ -114,7 +114,7 @@ export const AddNewButton = (props) => {
                         <Button title="Cancel" buttonType={ButtonTypes.NO_BORDER} backgroundColor="#fd612c" fontColor="white" onClick={() => { setIsFormOpen(false); setText(""); }} />
                     </div>
                 </div>
-            </div>
+            </button>
         )
     }
 
