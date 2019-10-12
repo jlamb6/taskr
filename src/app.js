@@ -7,8 +7,8 @@ import List from "../src/components/list/list"
 import CardInterface from "../src/common/cardInterface"
 import { ListSubheader } from "@material-ui/core";
 import { connect } from "react-redux"
-import { DragDropContext } from "react-beautiful-dnd"
-import { sort } from "./actions/actions"
+import { DragDropContext, Droppable } from "react-beautiful-dnd"
+import { sort, sortList } from "./actions/actions"
 
 const App = (props) => {
     const desc = "This board is for project management relating to software development";
@@ -16,14 +16,17 @@ const App = (props) => {
     const lastActivity = "Mon Aug 28, 2019";
 
     const onDragEnd = (result) => {
-      // tasks reordering logic
-      // need to reorder to tasks in the list that was rearranged so that React doesn't change it back
-      // needs to account for changing lists as well
-      const { destination, source, draggableId } = result;
+      const { destination, source, draggableId, type } = result;
 
       if (!destination) return;
 
-      props.dispatch(sort(source.droppableId, destination.droppableId, source.index, destination.index, draggableId));
+      if (type === "task") {
+        props.dispatch(sort(source.droppableId, destination.droppableId, source.index, destination.index, draggableId));
+      }
+      else if (type === "column") {
+        //sort the column
+        props.dispatch(sortList(source.index, destination.index, draggableId));
+      }
 
     }
 
@@ -32,11 +35,16 @@ const App = (props) => {
         <SideMenu />
         <BoardHeader boardName={props.board.name} boardDescription={props.board.desc} lastActivity={lastActivity} />
         <DragDropContext onDragEnd={onDragEnd}>
-          <div className="board-ui dragscroll">
-              {props.lists.lists.map(list => (
-                <List name={list.name} id={list.id} tasks={list.tasks} key={list.id} />
-              ))}
-          </div>  
+          <Droppable droppableId="columns" direction="horizontal" type="column">
+            {(provided) => (
+              <div className="board-ui" {...provided.droppableProps} ref={provided.innerRef}>
+                  {props.lists.lists.map((list, index) => (
+                    <List name={list.name} id={list.id} tasks={list.tasks} key={list.id} index={index} />
+                  ))}
+                  {provided.placeholder}
+              </div>  
+            )}
+          </Droppable>
         </DragDropContext>
       </div>
     )

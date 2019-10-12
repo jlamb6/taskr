@@ -63,9 +63,11 @@ export const AddNewButton = (props) => {
     const renderList = () => {
 
         return (
-            <button className="new-button" onClick={toggleList} onBlur={toggleList}>
-                <Icon name={"Add"} small={true} />
-                <span>{buttonText}</span>
+            <div style={{position: "relative"}}>
+                <button className="new-button" onClick={toggleList} onBlur={toggleList}>
+                    <Icon name="Add" small={true} />
+                    <span>{buttonText}</span>
+                </button>
                 <div className="new-button__actions">
                     <div className="new-button__list">
                         <div className="new-button__action-item"><Icon name="ComputerOutlined" small={true} />Board</div>
@@ -75,7 +77,7 @@ export const AddNewButton = (props) => {
                         <div className="new-button__action-item"><Icon name="PersonAddOutlined" small={true} />Invite</div>
                     </div>
                 </div>
-            </button>
+            </div>
         )
     }
 
@@ -90,9 +92,11 @@ export const AddNewButton = (props) => {
 
     const renderListForm = () => {
         return (
-            <button className="new-button" onClick={toggleList}>
-                <Icon name={"Add"} small={true} />
-                <span>{buttonText}</span>
+            <div style={{position: "relative"}}>
+                <button className="new-button" onClick={toggleList}>
+                    <Icon name={"Add"} small={true} />
+                    <span>{buttonText}</span>
+                </button>
                 <div className="new-button__form-container" onClick={(e) => e.stopPropagation()}>
                     <div className="new-button__form">
                         <Textarea 
@@ -114,7 +118,7 @@ export const AddNewButton = (props) => {
                         <Button title="Cancel" buttonType={ButtonTypes.NO_BORDER} backgroundColor="#fd612c" fontColor="white" onClick={() => { setIsFormOpen(false); setText(""); }} />
                     </div>
                 </div>
-            </button>
+            </div>
         )
     }
 

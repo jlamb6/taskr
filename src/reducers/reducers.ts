@@ -1,7 +1,6 @@
-import { SET_VISIBILITY_FILTER, VisibilityFilters, ADD_LIST, VIEW_LISTS, GRAB_TASK_DETAILS, VIEW_BOARD } from '../actions/actions'
+import { SET_VISIBILITY_FILTER, VisibilityFilters, ADD_LIST, VIEW_LISTS, GRAB_TASK_DETAILS, VIEW_BOARD, SORT_LIST } from '../actions/actions'
 import { ADD_TASK, SORT } from "../actions/actions"
 import { combineReducers } from 'redux'
-import { object } from '../../../../../Microsoft/TypeScript/3.5/node_modules/@types/prop-types';
 
 const dateOne = new Date("9/1/2019");
 
@@ -159,6 +158,13 @@ function lists(state = initialState.lists, action) {
                 });
                 return Object.assign({}, state, {lists: newState})
             }
+        case SORT_LIST:
+            const newListOrder = state.lists;
+            const list = newListOrder.filter(cur => cur.id === action.listId)[0];
+            newListOrder.splice(action.startIndex, 1);
+            newListOrder.splice(action.endIndex, 0, list);
+
+            return Object.assign({}, state, {lists: newListOrder})
         default:
             return state
     }
