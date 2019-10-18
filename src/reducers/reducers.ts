@@ -7,7 +7,7 @@ const dateOne = new Date("9/1/2019");
 const initialState = {
     visibilityFilter: VisibilityFilters.SHOW_ALL,
     board: {
-        id: "111",
+        id: "111222111",
         name: "Web Development",
         desc: "This board is for project management relating to software development",
         members: [
@@ -21,7 +21,7 @@ const initialState = {
     },
     lists: {
         curListID: 11111,
-        curTaskID: 11111,
+        curTaskID: 111111,
         lists: [
             {
                 name: "In Progress",
