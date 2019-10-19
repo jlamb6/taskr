@@ -4,7 +4,7 @@ import Textarea from 'react-textarea-autosize';
 import { Button, ButtonTypes, ButtonSizes } from "../common/button"
 import { connect } from "react-redux"
 import { Icon, IconColor } from "../common/icons"
-import { addList } from "../actions/actions"
+import { addList, addTask } from "../actions/actions"
 
 export const AddNewButton = (props) => {
 
@@ -12,12 +12,12 @@ export const AddNewButton = (props) => {
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [text, setText] = useState("");
     const [form, setForm] = useState("");
+    const [placeholderText, setPlaceholderText] = useState("");
+    const [addButtonText, setAddButtonText] = useState("");
 
     const buttonText = "New";
-    const addButtonText = "New List";
-    const placeholderText = "Add a title for the list...";
     
-    const handleKeystroke = (event) => {
+    const handleKeystroke = (event) => { 
         if (event.keyCode === 13) {
             handleAddList();
         }
@@ -27,25 +27,36 @@ export const AddNewButton = (props) => {
         setText(event.currentTarget.value);
     }
 
-    const openForm = (event, list: string) => {
+    const openForm = (event, type: string) => {
         event.stopPropagation();
-        setForm(list);
+        setForm(type);
         setIsFormOpen(true);
         setIsListOpen(false);
+        if (type === "list") {
+            setPlaceholderText("Add a title for the list...");
+            setAddButtonText("Add List");
+        }
+        else {
+            setPlaceholderText("Add a title for the task...");
+            setAddButtonText("Add Task");
+        }
     } 
 
     const toggleList = () => {
         (isListOpen) ? setIsListOpen(false) : setIsListOpen(true);
     }
 
-    const handleAddList = () => {
+    const handleAddList = () => { 
         const { dispatch } = props;
         const title = text;
         setText("");
         setIsFormOpen(false);
 
-        if (text) {
+        if (text && form === "list") {
             dispatch(addList(title));
+        }
+        else if (text && form === "task") {
+            dispatch(addTask(title, "123"));
         }
 
         return 
@@ -70,27 +81,54 @@ export const AddNewButton = (props) => {
                 </button>
                 <div className="new-button__actions">
                     <div className="new-button__list">
-                        <div className="new-button__action-item"><Icon name="ComputerOutlined" small={true} />Board</div>
-                        <div className="new-button__action-item" onClick={(e) => openForm(e, "list")}><Icon name="FormatListBulleted" small={true} />List</div>
-                        <div className="new-button__action-item"><Icon name="CheckCircleOutlineOutlined" small={true} />Task</div>
-                        <div className="new-button__action-item"><Icon name="LabelOutlined" small={true} />Label</div>
-                        <div className="new-button__action-item"><Icon name="PersonAddOutlined" small={true} />Invite</div>
+                        <div 
+                            className="new-button__action-item"
+                        >
+                            <Icon name="ComputerOutlined" small={true} />
+                            Board
+                        </div>
+                        <div 
+                            className="new-button__action-item" 
+                            onClick={(e) => openForm(e, "list")}
+                        >
+                            <Icon name="FormatListBulleted" small={true} />
+                            List
+                        </div>
+                        <div 
+                            className="new-button__action-item"
+                            onClick={(e) => openForm(e, "task")}
+                        >
+                            <Icon name="CheckCircleOutlineOutlined" small={true} />
+                            Task
+                        </div>
+                        <div 
+                            className="new-button__action-item"
+                        >
+                            <Icon name="LabelOutlined" small={true} />
+                            Label
+                        </div>
+                        <div 
+                            className="new-button__action-item"
+                        >
+                            <Icon name="PersonAddOutlined" small={true} />
+                            Invite
+                        </div>
                     </div>
                 </div>
             </div>
         )
     }
-
+    
     const renderForm = (form: string) => {
-        if (form === "list") return renderListForm();
+        if (form === "list") return renderNewForm();
     }
-
+    
     const handleBlur = (event) => {
         setIsFormOpen(false);
         setText("");
     }
 
-    const renderListForm = () => {
+    const renderNewForm = () => {
         return (
             <div style={{position: "relative"}}>
                 <button className="new-button" onClick={toggleList}>
@@ -124,7 +162,7 @@ export const AddNewButton = (props) => {
 
     //return (!isListOpen) ? renderAddButton() : renderList();
     if (isListOpen) return renderList();
-    else if (isFormOpen) return renderForm(form);
+    else if (isFormOpen) return renderForm("list");
     else return renderAddButton();
 } 
 
