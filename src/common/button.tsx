@@ -16,6 +16,7 @@ export enum ButtonTypes {
 export enum ButtonSizes {
     SMALL = 'small',
     MEDIUM = 'medium',
+    LARGE = 'large',
     DEFAULT = 'default',
     WIDE = 'wide',
     FULLWIDTH = 'fullwidth',
@@ -30,12 +31,15 @@ interface ButtonProps {
     buttonSize?: ButtonSizes;
     onClick?: React.MouseEventHandler;
     onMouseDown?: React.MouseEventHandler;
+    large?: boolean;
 }
 
 export class Button extends React.Component<ButtonProps> {
 
     public render() {
 
+        const isSmall = (this.props.large) ? false : true;
+        const isLarge = (this.props.large) ? true : false;
         const { title, buttonType, buttonSize, fontColor, backgroundColor, onClick, onMouseDown, ...rest } = this.props;
         const className = classNames('button', 
             buttonSize || ButtonSizes.DEFAULT,

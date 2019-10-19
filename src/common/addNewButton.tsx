@@ -122,7 +122,6 @@ export const AddNewButton = (props) => {
         )
     }
 
-    //return (!isListOpen) ? renderAddButton() : renderList();
     if (isListOpen) return renderList();
     else if (isFormOpen) return renderForm(form);
     else return renderAddButton();
