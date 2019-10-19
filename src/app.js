@@ -17,8 +17,6 @@ const App = (props) => {
     const title = "Web Development";
     const lastActivity = "Mon Aug 28, 2019";
 
-    console.log(props.board.isMenuOpen);
-
     const onDragEnd = (result) => {
       const { destination, source, draggableId, type } = result;
 

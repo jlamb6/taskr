@@ -4,7 +4,7 @@ import Textarea from 'react-textarea-autosize';
 import { Button, ButtonTypes, ButtonSizes } from "../common/button"
 import { connect } from "react-redux"
 import { Icon, IconColor } from "../common/icons"
-import { addList } from "../actions/actions"
+import { addList, addTask } from "../actions/actions"
 
 export const AddNewButton = (props) => {
 
@@ -12,10 +12,10 @@ export const AddNewButton = (props) => {
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [text, setText] = useState("");
     const [form, setForm] = useState("");
-
+    
+    let placeholderText = "";
+    let addButtonText = "";
     const buttonText = "New";
-    const addButtonText = "New List";
-    const placeholderText = "Add a title for the list...";
     
     const handleKeystroke = (event) => {
         if (event.keyCode === 13) {
@@ -27,9 +27,9 @@ export const AddNewButton = (props) => {
         setText(event.currentTarget.value);
     }
 
-    const openForm = (event, list: string) => {
+    const openForm = (event, form: string) => {
         event.stopPropagation();
-        setForm(list);
+        setForm(form);
         setIsFormOpen(true);
         setIsListOpen(false);
     } 
@@ -45,10 +45,9 @@ export const AddNewButton = (props) => {
         setIsFormOpen(false);
 
         if (text) {
-            dispatch(addList(title));
+            if (form === "list") dispatch(addList(title));
+            else if (form === "task") dispatch(addTask(title, "123"));
         }
-
-        return 
     }
 
     const renderAddButton = () => {
@@ -72,7 +71,7 @@ export const AddNewButton = (props) => {
                     <div className="new-button__list">
                         <div className="new-button__action-item"><Icon name="ComputerOutlined" small={true} />Board</div>
                         <div className="new-button__action-item" onClick={(e) => openForm(e, "list")}><Icon name="FormatListBulleted" small={true} />List</div>
-                        <div className="new-button__action-item"><Icon name="CheckCircleOutlineOutlined" small={true} />Task</div>
+                        <div className="new-button__action-item" onClick={(e) => openForm(e, "task")}><Icon name="CheckCircleOutlineOutlined" small={true} />Task</div>
                         <div className="new-button__action-item"><Icon name="LabelOutlined" small={true} />Label</div>
                         <div className="new-button__action-item"><Icon name="PersonAddOutlined" small={true} />Invite</div>
                     </div>
@@ -82,7 +81,17 @@ export const AddNewButton = (props) => {
     }
 
     const renderForm = (form: string) => {
-        if (form === "list") return renderListForm();
+        
+        if (form === "list") {
+            placeholderText = "Add a title for the list...";
+            addButtonText = "Add List";
+        }
+        else if (form === "task") {
+            placeholderText = "Add a title for the task...";
+            addButtonText = "Add Task";
+        }
+       
+        return renderListForm();
     }
 
     const handleBlur = (event) => {
@@ -91,6 +100,8 @@ export const AddNewButton = (props) => {
     }
 
     const renderListForm = () => {
+        console.log(form);
+ 
         return (
             <div style={{position: "relative"}}>
                 <button className="new-button" onClick={toggleList}>
