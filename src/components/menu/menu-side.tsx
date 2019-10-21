@@ -7,35 +7,75 @@ import NotificationsNoneOutlinedIcon from '@material-ui/icons/NotificationsNoneO
 import EqualizerOutlinedIcon from '@material-ui/icons/EqualizerOutlined';
 import PeopleOutlineIcon from '@material-ui/icons/PeopleOutline';
 import ComputerOutlinedIcon from '@material-ui/icons/ComputerOutlined';
+import AddIcon from '@material-ui/icons/Add';
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank';
 import UserInitials from "../../common/user-circle";
 import { Button, ButtonTypes, ButtonSizes } from "../../common/button"
+import { useState, useEffect } from "react"
+import { connect } from "react-redux"
+import { toggleMenu } from "../../actions/actions"
+
+const classNames = require("classnames")
 
 interface MenuItemProps {
-    title: string;
+    title?: string;
     icon?: string;
 }
 
-class MenuItem extends React.Component<MenuItemProps> {
-    public render() {
-        return (
-            <a>
-                <div style={{marginLeft: "8px"}}>{this.props.title}</div>
-            </a>
-        )
-    }
+const MenuItem = (props: MenuItemProps) => {
+    
+    return (
+        <a>
+            <div style={{marginLeft: "8px"}}>{props.title}</div>
+        </a>
+    )
 }
 
-//need to set icon font-size to 1.2em
+const Menu_Side = (props) => {
 
-class Menu_Side extends React.Component<{}> {
+    const toggle = () => {
+        const { dispatch, open } = props;
+        dispatch(toggleMenu(open));
+    }
 
-    public render() {
+    const renderCollapsedMenu = () => {
+        return (
+            <nav className="menu menu__collapse">
+                <div className="menu__header">
+                    <MenuIcon onClick={toggle} className="menu__toggle"/>
+                </div>
+                <div className="menu__nav-links">
+                    <div className="menu__nav-link"><HomeOutlinedIcon /><MenuItem /></div>
+                    <div className="menu__nav-link"><CheckCircleOutlineOutlinedIcon /><MenuItem /></div>
+                    <div className="menu__nav-link"><NotificationsNoneOutlinedIcon /><MenuItem /></div>
+                    <div className="menu__nav-link"><EqualizerOutlinedIcon /><MenuItem /></div>
+                </div>
+                <hr />
+                <div className="menu__members">
+                    <div className="menu__section-header">
+                        <PeopleOutlineIcon />
+                    </div>
+                </div>
+                <hr />
+                <div className="menu__board-container">
+                    <div className="menu__section-header">
+                        <ComputerOutlinedIcon />
+                    </div>
+                </div>
+                <hr />
+                <div className="menu__invite-container short">
+                    <AddIcon />
+                </div>
+            </nav>
+        )
+    }
+
+    const renderOpenMenu = () => {
         return (
             <nav className="menu">
                 <div className="menu__header">
-                    <div>Taskr</div>
-                    <MenuIcon />
+                    <MenuIcon onClick={toggle} className="menu__toggle" />
+                    <div className="menu__header-title">Taskr</div>
                 </div>
                 <div className="menu__nav-links">
                     <div className="menu__nav-link"><HomeOutlinedIcon /><MenuItem title="Home" /></div>
@@ -67,10 +107,10 @@ class Menu_Side extends React.Component<{}> {
                     <div className="menu__nav-links">
                         <div className="menu__nav-link"><CheckBoxOutlineBlankIcon /><MenuItem title="Web Development" /></div>
                         <div className="menu__nav-link"><CheckBoxOutlineBlankIcon /><MenuItem title="Project Management" /></div>
-                   </div>
-                   <div className="menu__button-container">
+                    </div>
+                    <div className="menu__button-container">
                         <Button title="New Board" buttonType={ButtonTypes.ICON} iconName="Add" />
-                   </div>
+                    </div>
                 </div>
                 <hr />
                 <div className="menu__invite-container">
@@ -80,6 +120,14 @@ class Menu_Side extends React.Component<{}> {
             </nav>
         )
     }
+
+    if (props.open) {
+        return renderOpenMenu();
+    }
+    else {
+        return renderCollapsedMenu();
+    }
+         
 }
 
-export default Menu_Side
+export default connect()(Menu_Side)

@@ -12,12 +12,12 @@ export const AddNewButton = (props) => {
     const [isFormOpen, setIsFormOpen] = useState(false);
     const [text, setText] = useState("");
     const [form, setForm] = useState("");
-    const [placeholderText, setPlaceholderText] = useState("");
-    const [addButtonText, setAddButtonText] = useState("");
-
+    
+    let placeholderText = "";
+    let addButtonText = "";
     const buttonText = "New";
     
-    const handleKeystroke = (event) => { 
+    const handleKeystroke = (event) => {
         if (event.keyCode === 13) {
             handleAddList();
         }
@@ -27,39 +27,27 @@ export const AddNewButton = (props) => {
         setText(event.currentTarget.value);
     }
 
-    const openForm = (event, type: string) => {
+    const openForm = (event, form: string) => {
         event.stopPropagation();
-        setForm(type);
+        setForm(form);
         setIsFormOpen(true);
         setIsListOpen(false);
-        if (type === "list") {
-            setPlaceholderText("Add a title for the list...");
-            setAddButtonText("Add List");
-        }
-        else {
-            setPlaceholderText("Add a title for the task...");
-            setAddButtonText("Add Task");
-        }
     } 
 
     const toggleList = () => {
         (isListOpen) ? setIsListOpen(false) : setIsListOpen(true);
     }
 
-    const handleAddList = () => { 
+    const handleAddList = () => {
         const { dispatch } = props;
         const title = text;
         setText("");
         setIsFormOpen(false);
 
-        if (text && form === "list") {
-            dispatch(addList(title));
+        if (text) {
+            if (form === "list") dispatch(addList(title));
+            else if (form === "task") dispatch(addTask(title, "123"));
         }
-        else if (text && form === "task") {
-            dispatch(addTask(title, "123"));
-        }
-
-        return 
     }
 
     const renderAddButton = () => {
@@ -81,54 +69,39 @@ export const AddNewButton = (props) => {
                 </button>
                 <div className="new-button__actions">
                     <div className="new-button__list">
-                        <div 
-                            className="new-button__action-item"
-                        >
-                            <Icon name="ComputerOutlined" small={true} />
-                            Board
-                        </div>
-                        <div 
-                            className="new-button__action-item" 
-                            onClick={(e) => openForm(e, "list")}
-                        >
-                            <Icon name="FormatListBulleted" small={true} />
-                            List
-                        </div>
-                        <div 
-                            className="new-button__action-item"
-                            onClick={(e) => openForm(e, "task")}
-                        >
-                            <Icon name="CheckCircleOutlineOutlined" small={true} />
-                            Task
-                        </div>
-                        <div 
-                            className="new-button__action-item"
-                        >
-                            <Icon name="LabelOutlined" small={true} />
-                            Label
-                        </div>
-                        <div 
-                            className="new-button__action-item"
-                        >
-                            <Icon name="PersonAddOutlined" small={true} />
-                            Invite
-                        </div>
+                        <div className="new-button__action-item"><Icon name="ComputerOutlined" small={true} />Board</div>
+                        <div className="new-button__action-item" onClick={(e) => openForm(e, "list")}><Icon name="FormatListBulleted" small={true} />List</div>
+                        <div className="new-button__action-item" onClick={(e) => openForm(e, "task")}><Icon name="CheckCircleOutlineOutlined" small={true} />Task</div>
+                        <div className="new-button__action-item"><Icon name="LabelOutlined" small={true} />Label</div>
+                        <div className="new-button__action-item"><Icon name="PersonAddOutlined" small={true} />Invite</div>
                     </div>
                 </div>
             </div>
         )
     }
-    
+
     const renderForm = (form: string) => {
-        if (form === "list") return renderNewForm();
+        
+        if (form === "list") {
+            placeholderText = "Add a title for the list...";
+            addButtonText = "Add List";
+        }
+        else if (form === "task") {
+            placeholderText = "Add a title for the task...";
+            addButtonText = "Add Task";
+        }
+       
+        return renderListForm();
     }
-    
+
     const handleBlur = (event) => {
         setIsFormOpen(false);
         setText("");
     }
 
-    const renderNewForm = () => {
+    const renderListForm = () => {
+        console.log(form);
+ 
         return (
             <div style={{position: "relative"}}>
                 <button className="new-button" onClick={toggleList}>
@@ -160,9 +133,8 @@ export const AddNewButton = (props) => {
         )
     }
 
-    //return (!isListOpen) ? renderAddButton() : renderList();
     if (isListOpen) return renderList();
-    else if (isFormOpen) return renderForm("list");
+    else if (isFormOpen) return renderForm(form);
     else return renderAddButton();
 } 
 

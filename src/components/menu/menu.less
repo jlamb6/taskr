@@ -6,7 +6,7 @@
 @menu-padding: 24px;
 
 .menu {
-    width: @menu-width;
+    width: 100%; /* @menu-width; */
     background-color: @menu-background;
     color: @grey-font;
     height: 100vh;
@@ -17,12 +17,20 @@
     grid-area: menu;
 }
 
+.menu__toggle {
+    padding: 4px 0;
+}
+
 .menu .menu__header {
     font-size: 24px;
     font-weight: 700;
-    padding: 24px;
+    padding: 24px 22px;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+}
+
+.menu__header > .menu__header-title {
+    margin-left: 12px;
 }
 
 .menu .menu__nav-link {
@@ -84,6 +92,10 @@
     font-weight: 100;
 }
 
+.menu__invite-container.short {
+    padding: 14px 22px;
+}
+
 .menu__button-container {
     margin: 14px 24px;
 }
@@ -138,4 +150,8 @@
 
 .bg-red {
     background-color: #F44336;
+}
+
+.menu__collapse .menu__header {
+    justify-content: center;
 }

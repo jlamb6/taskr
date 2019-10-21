@@ -10,6 +10,8 @@ import { connect } from "react-redux"
 import { DragDropContext, Droppable } from "react-beautiful-dnd"
 import { sort, sortList } from "./actions/actions"
 
+const classNames = require("classnames")
+
 const App = (props) => {
     const desc = "This board is for project management relating to software development";
     const title = "Web Development";
@@ -24,15 +26,15 @@ const App = (props) => {
         props.dispatch(sort(source.droppableId, destination.droppableId, source.index, destination.index, draggableId));
       }
       else if (type === "column") {
-        //sort the column
         props.dispatch(sortList(source.index, destination.index, draggableId));
       }
-
     }
 
+    const classes = classNames("App", {collapse: !props.board.isMenuOpen});
+
     return(
-      <div className="App">
-        <SideMenu />
+      <div className={classes}>
+        <SideMenu open={props.board.isMenuOpen} />
         <BoardHeader boardName={props.board.name} boardDescription={props.board.desc} lastActivity={lastActivity} />
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="columns" direction="horizontal" type="column">

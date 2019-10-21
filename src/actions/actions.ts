@@ -9,6 +9,7 @@ export const SORT = "SORT"
 export const SORT_LIST = "SORT_LIST"
 
 export const VIEW_BOARD = "VIEW_BOARD"
+export const TOGGLE_MENU = "TOGGLE_MENU"
 
 export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER'
 
@@ -46,6 +47,10 @@ export function viewLists(lists) {
 
 export function viewBoard(id) {
     return { type: VIEW_BOARD, id }
+}
+
+export function toggleMenu(isMenuOpen: boolean) {
+    return { type: TOGGLE_MENU, isMenuOpen}
 }
 
 /*

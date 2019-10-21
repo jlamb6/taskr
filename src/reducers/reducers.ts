@@ -1,5 +1,5 @@
 import { SET_VISIBILITY_FILTER, VisibilityFilters, ADD_LIST, VIEW_LISTS, GRAB_TASK_DETAILS, VIEW_BOARD, SORT_LIST } from '../actions/actions'
-import { ADD_TASK, SORT } from "../actions/actions"
+import { ADD_TASK, SORT, TOGGLE_MENU } from "../actions/actions"
 import { combineReducers } from 'redux'
 
 const dateOne = new Date("9/1/2019");
@@ -18,6 +18,7 @@ const initialState = {
             name: "Jacob Lamb",
             initials: "JL"
         },
+        isMenuOpen: true
     },
     lists: {
         curListID: 11111,
@@ -96,6 +97,9 @@ function board(state = initialState.board, action) {
     switch (action.type) {
         case VIEW_BOARD:
             return state
+        case TOGGLE_MENU:
+            const open = (action.isMenuOpen) ? false : true;
+            return Object.assign({}, state, {isMenuOpen: open})
         default:
             return state
     }
