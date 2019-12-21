@@ -8,7 +8,6 @@ const FixedContainer = (props) => {
     const [ title, setTitle ] = useState(props.element.innerText);
 
     const saveTitle = (event) => {
-        const newTitle = title;
         props.dispatch(editTaskTitle(props.cardId, props.listId, title));
         props.dispatch(applyOverlay(null, null, null, true));
     }
