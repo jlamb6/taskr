@@ -10,7 +10,8 @@ export const CardEdit = (props) => {
     //const [isEditOpen, setEditOpen] = useState(false);
 
     const toggleOpen = (event) => {
-        props.dispatch(applyOverlay(event.currentTarget.parentElement.parentElement, false));
+        const cardEle = event.currentTarget.parentElement.parentElement;
+        props.dispatch(applyOverlay(cardEle, props.cardId, props.listId, false));
     }
 
     return  (

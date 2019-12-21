@@ -7,23 +7,12 @@ import FixedContainer from "./fixedContainer"
 export const Overlay = (props) => {
 
     const open = props.open;
-/*
-    const cleanup = () => {
-
-    }
-*/
-    
     const closeOverlayOnBlur = (event) => {
-        // handle side effects here before state update
-        
-        // run state updated
-        if (event.target === event.currentTarget) props.dispatch(applyOverlay(null, true));
+        if (event.target === event.currentTarget) props.dispatch(applyOverlay(null, null, null, true));
     }
 
     const closeOverlay = (event) => {
-        // handle side effects here before state update
-        // run state updated
-        props.dispatch(applyOverlay(null, true));
+        props.dispatch(applyOverlay(null, null, null, true));
     }
 
     if (open) {
@@ -32,7 +21,7 @@ export const Overlay = (props) => {
                 <div className="close-circle" onClick={closeOverlay} >
                     {Icon({name: "Close", color: IconColor.WHITE, medium: true})}
                 </div>
-                <FixedContainer element={props.element} />
+                <FixedContainer element={props.element} cardId={props.overlay.cardId} listId={props.overlay.listId} />
             </div>
         )
     }
@@ -43,4 +32,8 @@ export const Overlay = (props) => {
     }
 }
 
-export default connect()(Overlay)
+const mapStateToProps = (state, ownProps) => {
+    return { overlay: state.board.overlay }
+}
+  
+export default connect(mapStateToProps)(Overlay)

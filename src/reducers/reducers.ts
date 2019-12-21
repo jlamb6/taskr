@@ -1,4 +1,4 @@
-import { SET_VISIBILITY_FILTER, VisibilityFilters, ADD_LIST, VIEW_LISTS, GRAB_TASK_DETAILS, VIEW_BOARD, SORT_LIST, APPLY_OVERLAY } from '../actions/actions'
+import { SET_VISIBILITY_FILTER, VisibilityFilters, ADD_LIST, VIEW_LISTS, GRAB_TASK_DETAILS, VIEW_BOARD, SORT_LIST, APPLY_OVERLAY, EDIT_TASK_TITLE } from '../actions/actions'
 import { ADD_TASK, SORT, TOGGLE_MENU } from "../actions/actions"
 import { combineReducers } from 'redux'
 
@@ -21,7 +21,9 @@ const initialState = {
         isMenuOpen: true,
         overlay: {
             applied: false,
-            target: null
+            target: null,
+            cardId: null,
+            listId: null
         }
     },
     lists: {
@@ -130,10 +132,14 @@ function board(state = initialState.board, action) {
             return Object.assign({}, state, {isMenuOpen: open})
         case APPLY_OVERLAY:
             const isOverlayApplied = (action.isOverlayApplied) ? false : true;
-            const targetEle = action.target;
+            const targetCardId = action.cardId;
+            const targetListId = action.listId;
+            const target = action.target;
             return Object.assign({}, state, {overlay: {
                 applied: isOverlayApplied,
-                target: targetEle
+                target: target,
+                cardId: targetCardId,
+                listId: targetListId
             }})
         default:
             return state
@@ -204,6 +210,23 @@ function lists(state = initialState.lists, action) {
             newListOrder.splice(action.endIndex, 0, list);
 
             return Object.assign({}, state, {lists: newListOrder})
+        case EDIT_TASK_TITLE:
+            let lists = state.lists;
+            const activeList = lists.filter(cur => cur.id === action.listId)[0];
+            const activeListIndex = lists.indexOf(activeList);
+            const tasks = activeList.tasks.map(cur => {
+                if (cur.id === action.taskId) {
+                    let updatedCard = cur;
+                    updatedCard.title = action.title;
+                    return updatedCard;
+                }
+                else return cur;
+            });
+            const newListObj = Object.assign({}, activeList, {tasks: tasks});
+            lists.splice(activeListIndex, 1);
+            lists.splice(activeListIndex, 0, newListObj);
+
+            return Object.assign({}, state, {lists: lists})
         default:
             return state
     }

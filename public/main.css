@@ -145,6 +145,7 @@ body {
     font-family: inherit;
     font-size: 14px;
     resize: none;
+    border: 1px solid #fff;
 }
 
 .card__quick-edit__title-editor:focus {
@@ -160,6 +161,10 @@ body {
     padding: 10px 24px;
     border-radius: 4px;
     cursor: pointer;
+}
+
+.card__quick-edit__save:focus {
+    outline: none;
 }
 
 .card__quick-edit__actions {

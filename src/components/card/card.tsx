@@ -8,29 +8,13 @@ import CardEdit from "./card-edit";
 
 export const Card = (props) => {
 
-    const [isEditOpen, setEditOpen] = useState(false);
-    /*
-    const cardParent = useRef(null);
-
-    const toggleCardEdit = (event) => {
-        let editBtn = event.currentTarget.querySelector(".card__edit");
-        if (!isEditOpen) {
-            editBtn.classList.remove("hidden");
-            setEditOpen(true);
-        }
-        else {
-            editBtn.classList.add("hidden");
-            setEditOpen(false);
-        }
-    }   
-    */
     return(
         <Draggable draggableId={props.task.id} index={props.index}>
             {(provided) => (
                 <div className="card" ref={provided.innerRef} {...provided.draggableProps} {...provided.dragHandleProps}>
                     <div className="card__title">
                         <div>{props.task.title}</div>
-                        <CardEdit />
+                        <CardEdit cardId={props.task.id} listId={props.list} />
                     </div>
                     <div className="card__body">
                         <div className="card__icons">

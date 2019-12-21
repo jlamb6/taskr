@@ -1,6 +1,7 @@
 // action types
 export const ADD_TASK = "ADD_TASK"
 export const VIEW_TASK = "VIEW_TASK"
+export const EDIT_TASK_TITLE = "EDIT_TASK_TITLE"
 export const GRAB_TASK_DETAILS = "GRAB_TASK_DETAILS"
 
 export const VIEW_LISTS = "VIEW_LISTS"
@@ -28,6 +29,10 @@ export function addTask(title, listId) {
 
 export function grabTask(id) {
     return { type: GRAB_TASK_DETAILS, id }
+}
+
+export function editTaskTitle(taskId, listId, title) {
+    return { type: EDIT_TASK_TITLE, taskId, listId, title }
 }
 
 export function addList(title) {
@@ -70,6 +75,6 @@ export function sortList(startIndex, endIndex, listId) {
     return { type: SORT_LIST, startIndex, endIndex, listId }
 }
 
-export function applyOverlay(target: HTMLElement, isOverlayApplied: Boolean) {
-    return { type: APPLY_OVERLAY, target, isOverlayApplied }
+export function applyOverlay(target: HTMLHtmlElement, cardId: string, listId: string, isOverlayApplied: Boolean) {
+    return { type: APPLY_OVERLAY, target, cardId, listId, isOverlayApplied }
 }

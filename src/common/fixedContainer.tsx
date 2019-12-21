@@ -1,10 +1,17 @@
 import * as React from "react"
 import { useState, useEffect, useRef } from "react"
-import Textarea from 'react-textarea-autosize';
+import { connect } from "react-redux"
+import { editTaskTitle, applyOverlay } from "../actions/actions";
 
 const FixedContainer = (props) => {
 
     const [ title, setTitle ] = useState(props.element.innerText);
+
+    const saveTitle = (event) => {
+        const newTitle = title;
+        props.dispatch(editTaskTitle(props.cardId, props.listId, title));
+        props.dispatch(applyOverlay(null, null, null, true));
+    }
     
     const coordinates = props.element.getBoundingClientRect();
     const x = coordinates.left; 
@@ -30,8 +37,15 @@ const FixedContainer = (props) => {
         setTitle(event.currentTarget.value);
     }
 
+    const handleEnter = (event) => {
+        if (event.keyCode === 13) {
+            saveTitle(event);
+        }
+    }
+
     useEffect(() => {
         textarea.current.focus();
+        textarea.current.selectionStart = textarea.current.value.length;
     }, [])
 
     return (
@@ -43,9 +57,10 @@ const FixedContainer = (props) => {
                     className="card__quick-edit__title-editor" 
                     value={title} 
                     onChange={handleTitleUpdate}
+                    onKeyDown={handleEnter}
                 ></textarea>
             </div>
-            <button className="card__quick-edit__save btn green">Save</button>
+            <button className="card__quick-edit__save btn green" onClick={saveTitle}>Save</button>
             <div className="card__quick-edit__actions" style={stylesTwo}>
                 <a className="card__quick-edit__action">
                     <span className="icon icon-left"></span>
@@ -68,4 +83,4 @@ const FixedContainer = (props) => {
     )
 }
 
-export default FixedContainer
+export default connect()(FixedContainer)

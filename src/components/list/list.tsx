@@ -31,7 +31,7 @@ export const List = ( props: ListProps ) => {
                                 <div className="list__container">
                                     <div className="list__body">
                                         {props.tasks.map((cur, index) => 
-                                            <Card task={cur} key={cur.id} index={index} />
+                                            <Card task={cur} key={cur.id} index={index} list={props.id} />
                                         )}
                                     </div>
                                     {provided.placeholder}
