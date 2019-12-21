@@ -8,7 +8,7 @@ export class CardView extends React.Component<CardInterface> {
 
     public render() {
         return (
-            <div className="card-view">
+            <div className="card-view remove">
                 <div className="card-view__wrapper">
                     <div className="card-view__header">
                         <h2>{this.props.title}</h2>

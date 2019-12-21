@@ -1,4 +1,4 @@
-import { SET_VISIBILITY_FILTER, VisibilityFilters, ADD_LIST, VIEW_LISTS, GRAB_TASK_DETAILS, VIEW_BOARD, SORT_LIST } from '../actions/actions'
+import { SET_VISIBILITY_FILTER, VisibilityFilters, ADD_LIST, VIEW_LISTS, GRAB_TASK_DETAILS, VIEW_BOARD, SORT_LIST, APPLY_OVERLAY } from '../actions/actions'
 import { ADD_TASK, SORT, TOGGLE_MENU } from "../actions/actions"
 import { combineReducers } from 'redux'
 
@@ -18,7 +18,11 @@ const initialState = {
             name: "Jacob Lamb",
             initials: "JL"
         },
-        isMenuOpen: true
+        isMenuOpen: true,
+        overlay: {
+            applied: false,
+            target: null
+        }
     },
     lists: {
         curListID: 11111,
@@ -79,6 +83,30 @@ const initialState = {
                 ]
             }
         ]
+    },
+    labels: {
+        labels: [
+            {
+                id: "223344",
+                title: "Research",
+                color: "#61bd4f"
+            },
+            {
+                id: "223345",
+                title: "Development",
+                color: "#0079bf"
+            },
+            {
+                id: "223346",
+                title: "Issue",
+                color: "#ff9f1a"
+            },
+            {
+                id: "223347",
+                title: "Failed",
+                color: "#eb5a46"
+            },
+        ]
     }
 }
 
@@ -100,6 +128,13 @@ function board(state = initialState.board, action) {
         case TOGGLE_MENU:
             const open = (action.isMenuOpen) ? false : true;
             return Object.assign({}, state, {isMenuOpen: open})
+        case APPLY_OVERLAY:
+            const isOverlayApplied = (action.isOverlayApplied) ? false : true;
+            const targetEle = action.target;
+            return Object.assign({}, state, {overlay: {
+                applied: isOverlayApplied,
+                target: targetEle
+            }})
         default:
             return state
     }

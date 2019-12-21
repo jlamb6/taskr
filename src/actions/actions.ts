@@ -12,6 +12,7 @@ export const VIEW_BOARD = "VIEW_BOARD"
 export const TOGGLE_MENU = "TOGGLE_MENU"
 
 export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER'
+export const APPLY_OVERLAY = "APPLY_OVERLAY"
 
 // other constants
 export const VisibilityFilters = {
@@ -69,3 +70,6 @@ export function sortList(startIndex, endIndex, listId) {
     return { type: SORT_LIST, startIndex, endIndex, listId }
 }
 
+export function applyOverlay(target: HTMLElement, isOverlayApplied: Boolean) {
+    return { type: APPLY_OVERLAY, target, isOverlayApplied }
+}

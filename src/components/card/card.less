@@ -1,4 +1,5 @@
 .card {
+    position: relative;
     white-space: normal;
     background-color: #fff;
     border-radius: 4px;
@@ -18,4 +19,60 @@
 .card__title {
     color: #26292f;
     font-size: inherit;
+}
+
+.remove {
+    display: none;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.card-view {
+    position: absolute;
+    width: 760px;
+    height: 100%;
+    background-color: #fff;
+
+}
+
+.card__title:hover > .card__edit {
+    visibility: visible;
+}
+
+.card__edit {
+    background-clip: padding-box;
+    background-origin: padding-box;
+    border-radius: 3px;
+    opacity: .8;
+    padding: 4px;
+    position: absolute;
+    right: 2px;
+    top: 2px;
+    background: rgba(148, 148, 148, 0.26);
+    box-sizing: border-box;
+    z-index: 40;
+}
+
+.card__edit.quick-edit {
+    opacity: 1;
+    right: 0;
+    top: 0;
+    background: #fff;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 101;
+}
+
+.card__edit:hover {
+    background-color: #afb3b97c;
+}
+
+.card__edit.quick-edit:hover {
+    background-color: #fff;
+}
+
+.card__edit-btn > svg {
+    margin: 0 !important;
 }

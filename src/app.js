@@ -4,6 +4,7 @@ import "./App.less";
 import SideMenu from "../src/components/menu/menu-side"
 import BoardHeader from "./components/menu/board-header"
 import List from "../src/components/list/list"
+import Overlay from "../src/common/overlay"
 import CardInterface from "../src/common/cardInterface"
 import { ListSubheader } from "@material-ui/core";
 import { connect } from "react-redux"
@@ -36,6 +37,7 @@ const App = (props) => {
       <div className={classes}>
         <SideMenu open={props.board.isMenuOpen} />
         <BoardHeader boardName={props.board.name} boardDescription={props.board.desc} lastActivity={lastActivity} />
+        <Overlay open={props.board.overlay.applied} element={props.board.overlay.target} />
         <DragDropContext onDragEnd={onDragEnd}>
           <Droppable droppableId="columns" direction="horizontal" type="column">
             {(provided) => (
