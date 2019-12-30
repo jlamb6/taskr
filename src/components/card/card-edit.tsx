@@ -11,7 +11,8 @@ export const CardEdit = (props) => {
 
     const toggleOpen = (event) => {
         const cardEle = event.currentTarget.parentElement.parentElement;
-        props.dispatch(applyOverlay(cardEle, props.cardId, props.listId, false));
+        props.dispatch(applyOverlay(cardEle, "cardEdit", props.cardId, props.listId, false));
+        event.stopPropagation();
     }
 
     return  (

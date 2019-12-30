@@ -37,9 +37,6 @@ interface ButtonProps {
 export class Button extends React.Component<ButtonProps> {
 
     public render() {
-
-        const isSmall = (this.props.large) ? false : true;
-        const isLarge = (this.props.large) ? true : false;
         const { title, buttonType, buttonSize, fontColor, backgroundColor, onClick, onMouseDown, ...rest } = this.props;
         const className = classNames('button', 
             buttonSize || ButtonSizes.DEFAULT,

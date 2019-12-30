@@ -2,6 +2,7 @@ import * as React from "react"
 import { useState, useEffect, useRef } from "react"
 import { connect } from "react-redux"
 import { editTaskTitle, applyOverlay } from "../actions/actions";
+import AnchorButton from "../common/anchorButton"
 
 const FixedContainer = (props) => {
 
@@ -9,7 +10,7 @@ const FixedContainer = (props) => {
 
     const saveTitle = (event) => {
         props.dispatch(editTaskTitle(props.cardId, props.listId, title));
-        props.dispatch(applyOverlay(null, null, null, true));
+        props.dispatch(applyOverlay(null, null, null, null, true));
     }
     
     const coordinates = props.element.getBoundingClientRect();
@@ -38,6 +39,7 @@ const FixedContainer = (props) => {
 
     const handleEnter = (event) => {
         if (event.keyCode === 13) {
+            setTitle(event.currentTarget.value);
             saveTitle(event);
         }
     }
@@ -61,22 +63,34 @@ const FixedContainer = (props) => {
             </div>
             <button className="card__quick-edit__save btn green" onClick={saveTitle}>Save</button>
             <div className="card__quick-edit__actions" style={stylesTwo}>
-                <a className="card__quick-edit__action">
-                    <span className="icon icon-left"></span>
-                    <span className="card__quick-fix__action-title">Edit Labels</span>
-                </a>
-                <a className="card__quick-edit__action">
-                    <span className="icon icon-left"></span>
-                    <span className="card__quick-fix__action-title">Assign Member</span>
-                </a>
-                <a className="card__quick-edit__action">
-                    <span className="icon icon-left"></span>
-                    <span className="card__quick-fix__action-title">Copy</span>
-                </a>
-                <a className="card__quick-edit__action">
-                    <span className="icon icon-left"></span>
-                    <span className="card__quick-fix__action-title">Move</span>
-                </a>
+                <AnchorButton 
+                    classes="card__quick-edit__action" 
+                    childClasses="card__quick-fix__action-title" 
+                    icon="Edit"
+                    title="Edit Labels"
+                    hasIcon={true}
+                />
+                <AnchorButton 
+                    classes="card__quick-edit__action" 
+                    childClasses="card__quick-fix__action-title" 
+                    icon="PersonAdd"
+                    title="Assign Member"
+                    hasIcon={true}
+                />
+                <AnchorButton 
+                    classes="card__quick-edit__action" 
+                    childClasses="card__quick-fix__action-title" 
+                    icon="FileCopy"
+                    title="Copy"
+                    hasIcon={true}
+                />
+                <AnchorButton 
+                    classes="card__quick-edit__action" 
+                    childClasses="card__quick-fix__action-title" 
+                    icon="ArrowForward"
+                    title="Move"
+                    hasIcon={true}
+                />
             </div>
         </div>
     )

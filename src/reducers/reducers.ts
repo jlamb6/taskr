@@ -21,6 +21,7 @@ const initialState = {
         isMenuOpen: true,
         overlay: {
             applied: false,
+            type: null,
             target: null,
             cardId: null,
             listId: null
@@ -38,6 +39,7 @@ const initialState = {
                     {
                         id: "1233",
                         title: "Go to store",
+                        description: "Here is a description.",
                         dateCreated: dateOne,
                         members: ["Jake Lamb"],
                         activity: [`Created on ${dateOne}.`],
@@ -46,6 +48,7 @@ const initialState = {
                     {
                         id: "1234",
                         title: "Work on homework",
+                        description: "Here is a description.",
                         dateCreated: dateOne,
                         members: ["Jake Lamb"],
                         activity: [`Created on ${dateOne}.`],
@@ -54,6 +57,7 @@ const initialState = {
                     {
                         id: "12345",
                         title: "Go to work",
+                        description: "Here is a description.",
                         dateCreated: dateOne,
                         members: ["Jake Lamb"],
                         activity: [`Created on ${dateOne}.`],
@@ -69,6 +73,7 @@ const initialState = {
                     {
                         id: "11234",
                         title: "Go to church",
+                        description: "Here is a description.",
                         dateCreated: dateOne,
                         members: ["Jake Lamb"],
                         activity: [`Created on ${dateOne}.`],
@@ -77,6 +82,7 @@ const initialState = {
                     {
                         id: "11235",
                         title: "Sleeeeeeep",
+                        description: "Here is a description.",
                         dateCreated: dateOne,
                         members: ["Jake Lamb"],
                         activity: [`Created on ${dateOne}.`],
@@ -137,6 +143,7 @@ function board(state = initialState.board, action) {
             const target = action.target;
             return Object.assign({}, state, {overlay: {
                 applied: isOverlayApplied,
+                type: action.containerType,
                 target: target,
                 cardId: targetCardId,
                 listId: targetListId
@@ -161,6 +168,7 @@ function lists(state = initialState.lists, action) {
             const newTask = {
                 id: `${state.curTaskID++}`,
                 title: action.title,
+                description: '',
                 dateCreated: dateOne,
                 members: [],
                 activity: [`Created on ${dateOne}.`],
@@ -225,6 +233,8 @@ function lists(state = initialState.lists, action) {
             const newListObj = Object.assign({}, activeList, {tasks: tasks});
             lists.splice(activeListIndex, 1);
             lists.splice(activeListIndex, 0, newListObj);
+            console.log(tasks);
+            console.log(lists);
 
             return Object.assign({}, state, {lists: lists})
         default:

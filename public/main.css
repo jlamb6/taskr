@@ -106,8 +106,14 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: #303338a6;
+    background-color: rgba(0,0,0,.64);
     z-index: 100;
+}
+
+.overlay.flex {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 .close-circle {
@@ -176,10 +182,22 @@ body {
 }
 
 .card__quick-edit__action {
+    display: flex;
+    align-items: center;
     background-color: #1b1b1b9c;
     border-radius: 4px;
     color: #fff;
     padding: 6px 12px 6px 8px;
     margin: 0 0 4px;
     cursor: pointer;
+    transition: .08s ease-in;
+    white-space: nowrap;
+}
+
+.card__quick-edit__action:hover {
+    padding: 6px 18px 6px 14px;
+}
+
+.button-list > .button:last-child {
+    margin: 0 !important;
 }

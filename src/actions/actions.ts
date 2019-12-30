@@ -75,6 +75,6 @@ export function sortList(startIndex, endIndex, listId) {
     return { type: SORT_LIST, startIndex, endIndex, listId }
 }
 
-export function applyOverlay(target: HTMLHtmlElement, cardId: string, listId: string, isOverlayApplied: Boolean) {
-    return { type: APPLY_OVERLAY, target, cardId, listId, isOverlayApplied }
+export function applyOverlay(target: HTMLHtmlElement, containerType: string, cardId: string, listId: string, isOverlayApplied: Boolean) {
+    return { type: APPLY_OVERLAY, target, containerType, cardId, listId, isOverlayApplied }
 }
