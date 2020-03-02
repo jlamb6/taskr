@@ -36,11 +36,12 @@
     position: relative;
     max-width: 760px;
     width: 760px;
-    height: 100%;
     background-color: #f4f5f7;
     margin: 48px 0 80px;
     border-radius: 4px;
     color: #172b4d;
+    display: grid;
+    grid-template-columns: 3fr 1fr; 
 }
 
 .card-view__wrapper {
@@ -82,8 +83,8 @@
     box-shadow: inset 0 0 0 2px #0079bf;
 }
 
-.card-view__header {
-    margin: 14px 32px;
+.card-view__header {    
+    margin: 2em 2em 1em;
     display: flex;
     align-items: flex-start;
 }
@@ -134,7 +135,7 @@
 
 .card-view__details {
     display: flex;
-    margin: 14px 32px;
+    margin: 1em 2em;
     padding: 4px 8px;
     flex-direction: row;
 }
@@ -145,7 +146,7 @@
     border-radius: 25px;
     padding: 2px 2px 1px;
     cursor: pointer;
-    margin-right: 12px;
+    margin-right: 1em;
     border: 1px solid black;
 }
 
@@ -156,7 +157,7 @@
 }
 
 .card-view__desc {
-    margin: 14px 32px;
+    margin: 1em 2em;
     padding: 4px 8px;
 }
 
@@ -165,12 +166,15 @@
     align-items: center;
 }
 
+.card-view__desc-body {
+    margin: 1em 0;
+}
+
 .card-view__desc__text {
     resize: none;
     min-height: 64px;
     border: 2px solid  rgba(112,112,112,.2);
     border-radius: 4px;
-    margin: 8px 0;
     width: 100%;
     box-sizing: border-box;
     padding: 8px 12px;
@@ -188,12 +192,12 @@
 }
 
 .card-view__checklist {
-    margin: 14px 32px;
+    margin: 1em 2em;
     padding: 4px 8px;
 }
 
 .card-view__progress {
-    margin: 14px 0;
+    margin: 1em 0;
 }
 
 .progress-bar {
@@ -206,7 +210,7 @@
 .progress-bar__container {
     width: 100%;
     height: 8px;
-    margin-left: 5px;   
+    margin-left: 1em;   
 }
 
 .progress-bar__complete {
@@ -229,7 +233,7 @@
 }
 
 .progress-bar__status {
-    width: 34px;
+    width: 2em;
     display: inline-block;
     font-size: .8em;
 }
@@ -237,6 +241,10 @@
 .checklist__item {
     display: flex;
     align-items: flex-start;
+}
+
+.checklist__list {
+    margin: 1em 0; 
 }
 
 .checklist__item p, .checklist__item textarea {
@@ -266,4 +274,86 @@
     border-color: rgba(112,112,112,.2);
     height: 64px;
     background-color: rgba(0,0,0,.02);
+}
+
+.actions__container {
+    margin: 4em 2em 2em 0;
+}
+
+.actions__container button {
+    margin-bottom: 0.5em;
+}
+
+.checklist__delete {
+    position: relative;
+    background: none;
+    border: 1px solid #646f79;
+    padding: 6px 8px 5px 4px;
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    transition: 0.2s;
+    /*transform: scale(.831);*/
+    border-radius: 4px;
+    z-index: 10;
+}
+
+.checklist__delete:focus {
+    outline: none;
+}
+
+.checklist__delete-actions {
+    position: absolute;
+    width: 312px;
+    top: 40px;
+    left: 0;
+    margin-right: 12px;
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #d5dce0;    
+    box-shadow: 0 6px 12px rgba(20,25,30,.2);
+    color: #151b26;
+    z-index: 100;
+    font-size: 13.33px;
+}
+
+.delete__title {
+    line-height: 40px;
+    padding: 0 32px;
+    margin: 0 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    opacity: 0.6;
+    border-bottom: 1px solid #646f79;
+    text-align: center;
+}
+
+.delete__body {
+    margin: 12px 12px;
+}
+
+.delete__body p {
+    margin: 0 0 0.5em;
+    line-height: 1.5em;
+}
+
+.delete__button {
+    margin: 0 12px 12px;
+}
+
+.delete__button button {
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #cf513d;
+    color: white;
+    padding: 6px 8px 5px 4px;
+    border: 1px solid #cf513d;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.delete__close {
+    position: absolute;
+    top: 5px;
+    right: 0;
 }

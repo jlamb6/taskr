@@ -1,4 +1,4 @@
-import { SET_VISIBILITY_FILTER, VisibilityFilters, ADD_LIST, VIEW_LISTS, GRAB_TASK_DETAILS, VIEW_BOARD, SORT_LIST, APPLY_OVERLAY, EDIT_TASK_TITLE } from '../actions/actions'
+import { SET_VISIBILITY_FILTER, VisibilityFilters, ADD_LIST, VIEW_LISTS, GRAB_TASK_DETAILS, VIEW_BOARD, SORT_LIST, APPLY_OVERLAY, EDIT_TASK_TITLE, ADD_CHECKLIST_ITEM } from '../actions/actions'
 import { ADD_TASK, SORT, TOGGLE_MENU } from "../actions/actions"
 import { combineReducers } from 'redux'
 
@@ -43,7 +43,29 @@ const initialState = {
                         dateCreated: dateOne,
                         members: ["Jake Lamb"],
                         activity: [`Created on ${dateOne}.`],
-                        checklist: []
+                        checklists: [
+                            {
+                                id: "checklist-1",
+                                name: "My Checklist",
+                                checklist: [
+                                    {
+                                        id: "checklist-item-1",
+                                        title: "Item 1",
+                                        complete: true
+                                    },
+                                    {
+                                        id: "checklist-item-2",
+                                        title: "Item 2",
+                                        complete: false
+                                    },
+                                    {
+                                        id: "checklist-item-3",
+                                        title: "Item 3",
+                                        complete: false
+                                    }
+                                ]
+                            }
+                        ]
                     },
                     {
                         id: "1234",
@@ -52,7 +74,7 @@ const initialState = {
                         dateCreated: dateOne,
                         members: ["Jake Lamb"],
                         activity: [`Created on ${dateOne}.`],
-                        checklist: []
+                        checklists: []
                     },
                     {
                         id: "12345",
@@ -61,7 +83,7 @@ const initialState = {
                         dateCreated: dateOne,
                         members: ["Jake Lamb"],
                         activity: [`Created on ${dateOne}.`],
-                        checklist: []
+                        checklists: []
                     }
                 ]
             },
@@ -77,7 +99,7 @@ const initialState = {
                         dateCreated: dateOne,
                         members: ["Jake Lamb"],
                         activity: [`Created on ${dateOne}.`],
-                        checklist: []
+                        checklists: []
                     },
                     {
                         id: "11235",
@@ -86,7 +108,7 @@ const initialState = {
                         dateCreated: dateOne,
                         members: ["Jake Lamb"],
                         activity: [`Created on ${dateOne}.`],
-                        checklist: []
+                        checklists: []
                     }
                 ]
             }
@@ -172,7 +194,7 @@ function lists(state = initialState.lists, action) {
                 dateCreated: dateOne,
                 members: [],
                 activity: [`Created on ${dateOne}.`],
-                checklist: []
+                checklists: []
             }
             const newListArr = state.lists.map(list => {
                 if (list.id === action.listId) {

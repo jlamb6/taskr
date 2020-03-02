@@ -1,18 +1,21 @@
 import * as React from "react"
 import { useState } from "react"
 import CardInterface from "../../common/cardInterface"
-import { Icon, IconColor } from "../../common/icons"
+import { Icon } from "../../common/icons"
 import { connect } from "react-redux"
 import "./card.less"
-import { applyOverlay } from "../../actions/actions";
+import { applyOverlay } from "../../actions/actions"
 import UserInitials from "../../common/user-circle"
 import { Button, ButtonTypes, ButtonSizes } from "../../common/button"
-import Checklist from "../checklist/checklist";
+import Checklist from "../checklist/checklist"
+import ActivityLog from "../activityLog/activityLog"
+import ActionButton from "./actionButton"
 
 export const CardView = (props) => {
 
     const [title, setTitle] = useState(props.title);
     const [description, setDescription] = useState(props.description);
+    const [checklists, setChecklists] = useState(props.checklists);
 
     const handleTitleChange = (event) => {
         setTitle(event.target.value);
@@ -26,10 +29,22 @@ export const CardView = (props) => {
         if (event.keyCode === 13) setDescription(event);
     }
 
-    const fullWidth = {
-        width: "100%"
+    const addChecklist = (title) => {
+        const checklist = {
+            name: title,
+            id: "random id",
+            checklist: []
+        }
+        const newChecklists = checklists.concat(checklist);
+        setChecklists(newChecklists);
     }
 
+    const deleteChecklist = (id: String) => {
+        const newChecklists = checklists.filter(cur => cur.id !== id);
+        setChecklists(newChecklists);
+    }
+
+    const fullWidth = { width: "100%" };
     const listTitle = { paddingLeft: "10px", margin: "0", fontSize: ".875em" };
     const anchorStyle = { color: "inherit" };
     const flex = { display: "flex", alignItems: "center" };
@@ -86,10 +101,46 @@ export const CardView = (props) => {
                         />
                     </div>
                 </div>
-                <Checklist name="CheckList!" list={[
-                                                    {title: "Task One", complete: true}, 
-                                                    {title: "Task Two", complete: false},
-                                                    {title: "Task three", complete: false}]} />
+                {(checklists.map((checklist, index) => (
+                    <Checklist key={index} {...checklist} delete={deleteChecklist} />))
+                )}
+                <ActivityLog activityLog={[]} />
+            </div>
+            <div className="card-view__actions">
+                <div className="actions__container">
+                    <h4>Add to Task</h4>
+                    <Button 
+                        title="Members"
+                        iconName="PeopleOutline"
+                        buttonType={ButtonTypes.ICON} 
+                        buttonSize={ButtonSizes.FULLWIDTH} 
+                        fontColor="black" 
+                    />
+                    <Button 
+                        title="Labels"
+                        iconName="Label"
+                        buttonType={ButtonTypes.ICON} 
+                        buttonSize={ButtonSizes.FULLWIDTH} 
+                        fontColor="black" 
+                    />
+                    <Button 
+                        title="Due Date"
+                        iconName="CalendarToday"
+                        buttonType={ButtonTypes.ICON} 
+                        buttonSize={ButtonSizes.FULLWIDTH} 
+                        fontColor="black" 
+                    />
+                    <ActionButton 
+                        buttonText="Checklist"
+                        iconName="CheckCircleOutline"
+                        label="Title"
+                        inputType="text"
+                        placeholder="Checklist"
+                        formTitle="Add Checklist"
+                        actionButtonText="Add"
+                        action={addChecklist}
+                    />
+                </div>
             </div>
         </div>
     )

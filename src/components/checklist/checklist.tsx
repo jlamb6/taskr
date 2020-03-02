@@ -1,20 +1,38 @@
 import * as React from "react"
 import { useState, useEffect } from "react"
 import { Button, ButtonTypes, ButtonSizes } from "../../common/button"
-import { Icon, IconColor } from "../../common/icons"
+import { Icon } from "../../common/icons"
 import ChecklistItem from "./checklistItem";
+import { AddChecklistButton } from "./addChecklistItem";
+import DeleteChecklistButton from "./deleteChecklist";
 
 const Checklist = (props) => {
 
-    const [ numItems, setNumItems ] = useState(props.list.length);
-    const completed = (numItems > 0) ? props.list.filter(cur => cur.complete).length : 0;
+    const [ list, setList ] = useState(props.checklist);
+    const [ numItems, setNumItems ] = useState(list.length);
+    const completed = (numItems > 0) ? list.filter(cur => cur.complete).length : 0;
     const [ numComplete, setNumComplete ] = useState(completed);
-
-    const [progress, setProgress] = (numItems > 0) ? useState(Math.round((numComplete/numItems)*100)) : useState(0);
+    const [ isFiltered, setFilter ] = useState(false);
+    const [ progress, setProgress ] = (numItems > 0) ? useState(Math.round((numComplete/numItems)*100)) : useState(0);
+    
+    const filter = () => {
+        if (isFiltered) setFilter(false);
+        else  setFilter(true);
+    }
     
     const updateProgress = (change) => {
         if (change  === 1) setNumComplete(numComplete + 1);
         else setNumComplete(numComplete - 1);
+    }
+
+    const addChecklistItem = (title) => {
+        const newItem = {
+            title: title,
+            complete: false
+        }
+        const newList = list.concat(newItem);
+        setList(newList);
+        setNumItems(numItems + 1);
     }
 
     useEffect(() => {
@@ -33,17 +51,17 @@ const Checklist = (props) => {
                 </div>
                 <div style={flex} className="button-list">
                     <Button 
-                        title="Hide Complete" 
-                        buttonType={ButtonTypes.DEFAULT} 
-                        buttonSize={ButtonSizes.MEDIUM} 
-                        fontColor="black" 
-                    />
-                    <Button 
-                        title="Add Item" 
-                        iconName="Add"
+                        title={(isFiltered) ? `Show Complete (${numComplete})` : "Hide Complete"} 
+                        iconName={(isFiltered) ? "Visibility" : "VisibilityOff"}
                         buttonType={ButtonTypes.ICON} 
                         buttonSize={ButtonSizes.MEDIUM} 
-                        fontColor="black" 
+                        fontColor="black"
+                        onClick={filter} 
+                    />
+                    <DeleteChecklistButton 
+                        title={props.name} 
+                        action={props.delete} 
+                        id={props.id} 
                     />
                 </div>
             </div>
@@ -57,7 +75,8 @@ const Checklist = (props) => {
                 </div>
             </div>
             <div className="checklist__list">
-                {props.list.map((cur, index) => {
+                {list.map((cur, index) => {
+                    const hide = (isFiltered && cur.complete) ? true : false;
                     return (
                         <ChecklistItem 
                             title={cur.title} 
@@ -65,27 +84,18 @@ const Checklist = (props) => {
                             key={index} 
                             onCheck={setProgress}
                             update={updateProgress}
+                            hide={hide}
                         />
                     )
                 })}
+                <div className='checklist__footer'>
+                    <AddChecklistButton 
+                        addItem={addChecklistItem}
+                        text={(numItems > 1) ? "Add another checklist item" : "Add a checklist item"} />
+                </div>
             </div>
         </div>
     )
 }
-
-/*
-<div className="checklist__item item-complete">
-                    <Icon name="CheckCircle" medium={true} />
-                    <p><em>This is item number one</em></p>
-                </div>
-                <div className="checklist__item">
-                    <Icon name="RadioButtonUnchecked" medium={true} />
-                    <p>This is item number two</p>
-                </div>
-                <div className="checklist__item">
-                    <Icon name="RadioButtonUnchecked" medium={true} />
-                    <p>This is item number three</p>
-                </div>
-                */
 
 export default Checklist

@@ -12,6 +12,8 @@ export const SORT_LIST = "SORT_LIST"
 export const VIEW_BOARD = "VIEW_BOARD"
 export const TOGGLE_MENU = "TOGGLE_MENU"
 
+export const ADD_CHECKLIST_ITEM = "ADD_CHECKLIST_ITEM"
+
 export const SET_VISIBILITY_FILTER = 'SET_VISIBILITY_FILTER'
 export const APPLY_OVERLAY = "APPLY_OVERLAY"
 
@@ -23,6 +25,10 @@ export const VisibilityFilters = {
 }
 
 // action creators
+export function addChecklistItem(title, taskId) {
+    return {type: ADD_CHECKLIST_ITEM, title, taskId }
+}
+
 export function addTask(title, listId) {
     return { type: ADD_TASK, title, listId }
 }

@@ -11,7 +11,8 @@ const ChecklistItem = (props) => {
     const updateProgress = props.update;
 
     const icon = (isComplete) ? "CheckCircle" : "RadioButtonUnchecked";
-    const classes = (isComplete) ? "checklist__item item-complete" : "checklist__item";
+    let classes = (isComplete) ? "checklist__item item-complete" : "checklist__item";
+    if (props.hide) classes = classes.concat(" hide");
 
     const handleChange = (event) => { setTitle(event.target.value); };
     const handleEnter = (event) => { setTitle(event.target.value); };
