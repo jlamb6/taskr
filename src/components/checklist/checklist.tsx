@@ -13,7 +13,7 @@ const Checklist = (props) => {
     const completed = (numItems > 0) ? list.filter(cur => cur.complete).length : 0;
     const [ numComplete, setNumComplete ] = useState(completed);
     const [ isFiltered, setFilter ] = useState(false);
-    const [ progress, setProgress ] = (numItems > 0) ? useState(Math.round((numComplete/numItems)*100)) : useState(0);
+    const [ progress, setProgress ] = useState((numItems > 0) ? Math.round((numComplete/numItems)*100) : 0);
     
     const filter = () => {
         if (isFiltered) setFilter(false);
@@ -36,7 +36,8 @@ const Checklist = (props) => {
     }
 
     useEffect(() => {
-        setProgress(Math.round((numComplete/numItems)*100));
+        if (numItems > 0) setProgress(Math.round((numComplete/numItems)*100));
+        else setProgress(0);
     })
 
     const flex = { display: "flex", alignItems: "center" };
@@ -76,7 +77,6 @@ const Checklist = (props) => {
             </div>
             <div className="checklist__list">
                 {list.map((cur, index) => {
-                    const hide = (isFiltered && cur.complete) ? true : false;
                     return (
                         <ChecklistItem 
                             title={cur.title} 
@@ -84,7 +84,7 @@ const Checklist = (props) => {
                             key={index} 
                             onCheck={setProgress}
                             update={updateProgress}
-                            hide={hide}
+                            hide={(isFiltered && cur.complete)}
                         />
                     )
                 })}

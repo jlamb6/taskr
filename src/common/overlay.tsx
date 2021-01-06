@@ -12,7 +12,7 @@ export const Overlay = (props) => {
         const type = props.overlay.type;
         if (type === "cardEdit") {
             return (
-                <FixedContainer element={props.element} cardId={props.overlay.cardId} listId={props.overlay.listId} />
+                <div></div>
             );
         }
         else if (type === "cardView") {

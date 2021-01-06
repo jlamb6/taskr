@@ -5,17 +5,17 @@ import { Icon } from "../../common/icons"
 import { connect } from "react-redux"
 import "./card.less"
 import { applyOverlay } from "../../actions/actions"
-import UserInitials from "../../common/user-circle"
-import { Button, ButtonTypes, ButtonSizes } from "../../common/button"
 import Checklist from "../checklist/checklist"
 import ActivityLog from "../activityLog/activityLog"
-import ActionButton from "./actionButton"
+import Chip from "./chips"
+import CardActions from "./cardActions"
 
 export const CardView = (props) => {
-
+    const [details, setDetails] = useState(props.details)
     const [title, setTitle] = useState(props.title);
     const [description, setDescription] = useState(props.description);
     const [checklists, setChecklists] = useState(props.checklists);
+    const [activity, setActivity] = useState(props.activity)
 
     const handleTitleChange = (event) => {
         setTitle(event.target.value);
@@ -29,7 +29,7 @@ export const CardView = (props) => {
         if (event.keyCode === 13) setDescription(event);
     }
 
-    const addChecklist = (title) => {
+    const addChecklist = (title: String) => {
         const checklist = {
             name: title,
             id: "random id",
@@ -47,8 +47,6 @@ export const CardView = (props) => {
     const fullWidth = { width: "100%" };
     const listTitle = { paddingLeft: "10px", margin: "0", fontSize: ".875em" };
     const anchorStyle = { color: "inherit" };
-    const flex = { display: "flex", alignItems: "center" };
-    const flexBetween = { display: "flex", alignItems: "center", justifyContent: "space-between" };
 
     const closeView = (event) => {
         props.dispatch(applyOverlay(null, null, null, null, true));
@@ -68,24 +66,9 @@ export const CardView = (props) => {
                     </span>
                 </div>
                 <div className="card-view__details">
-                    <div className="card__detail">
-                        <div className="card__detail__wrapper">
-                            <Icon name="Check" small={true} />
-                            <span>Complete</span>
-                        </div>
-                    </div>
-                    <div className="card__detail">
-                        <UserInitials userName="Jake Lamb" initials="JL" small={true} id="z123" /> 
-                        <div className="card__detail__wrapper">
-                            <span>Assigned to Jake L.</span>
-                        </div>
-                    </div>
-                    <div className="card__detail"> 
-                        <div className="card__detail__wrapper">
-                            <Icon name="EventAvailable" small={true} />
-                            <span>Due Tues, Mar 15</span>
-                        </div>
-                    </div>
+                    {details.map((cur: any, index: Number) => (
+                        <Chip {...cur} key={index} />
+                    ))}
                 </div>
                 <div className="card-view__desc">
                     <div className="card-view__desc-header">
@@ -101,47 +84,12 @@ export const CardView = (props) => {
                         />
                     </div>
                 </div>
-                {(checklists.map((checklist, index) => (
+                {(checklists.map((checklist: any, index: Number) => (
                     <Checklist key={index} {...checklist} delete={deleteChecklist} />))
                 )}
-                <ActivityLog activityLog={[]} />
+                <ActivityLog activityLog={activity} />
             </div>
-            <div className="card-view__actions">
-                <div className="actions__container">
-                    <h4>Add to Task</h4>
-                    <Button 
-                        title="Members"
-                        iconName="PeopleOutline"
-                        buttonType={ButtonTypes.ICON} 
-                        buttonSize={ButtonSizes.FULLWIDTH} 
-                        fontColor="black" 
-                    />
-                    <Button 
-                        title="Labels"
-                        iconName="Label"
-                        buttonType={ButtonTypes.ICON} 
-                        buttonSize={ButtonSizes.FULLWIDTH} 
-                        fontColor="black" 
-                    />
-                    <Button 
-                        title="Due Date"
-                        iconName="CalendarToday"
-                        buttonType={ButtonTypes.ICON} 
-                        buttonSize={ButtonSizes.FULLWIDTH} 
-                        fontColor="black" 
-                    />
-                    <ActionButton 
-                        buttonText="Checklist"
-                        iconName="CheckCircleOutline"
-                        label="Title"
-                        inputType="text"
-                        placeholder="Checklist"
-                        formTitle="Add Checklist"
-                        actionButtonText="Add"
-                        action={addChecklist}
-                    />
-                </div>
-            </div>
+            <CardActions addChecklist={addChecklist} />
         </div>
     )
 }

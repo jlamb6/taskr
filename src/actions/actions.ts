@@ -3,6 +3,7 @@ export const ADD_TASK = "ADD_TASK"
 export const VIEW_TASK = "VIEW_TASK"
 export const EDIT_TASK_TITLE = "EDIT_TASK_TITLE"
 export const GRAB_TASK_DETAILS = "GRAB_TASK_DETAILS"
+export const UPDATE_COMPLETE = "UPDATE_COMPLETE"
 
 export const VIEW_LISTS = "VIEW_LISTS"
 export const ADD_LIST = "ADD_LIST"

@@ -9,10 +9,17 @@ const ActionButton = (props) => {
   const parentEle = React.createRef<HTMLDivElement>();
   const inputNode = React.createRef<HTMLInputElement>();
 
-  const toggleForm = () => {
+  const toggleForm = (event) => {
     if (isFormOpen) setFormOpen(false);
     else {
       setFormOpen(true);
+      let xpos = event.currentTarget.getBoundingClientRect().left;
+      let maxX = window.innerWidth;
+      console.log(`xpos: ${xpos}`);
+      console.log(`maxX: ${maxX}`);
+      if ((maxX - xpos) < 308) {
+        console.log("need to right align the form");
+      }
     }
   }
 
@@ -34,8 +41,7 @@ const ActionButton = (props) => {
       if (node === parent) return true;
       node = node.parentElement;
     }
-  
-    
+
     return false;
   }
   

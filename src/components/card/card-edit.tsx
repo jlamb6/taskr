@@ -1,17 +1,11 @@
 import * as React from "react"
-import { useState } from "react"
-import Overlay from "../../common/overlay"
 import { Icon, IconColor } from "../../common/icons"
 import { connect } from "react-redux"
-import { applyOverlay } from "../../actions/actions"
 
 export const CardEdit = (props) => {
 
-    //const [isEditOpen, setEditOpen] = useState(false);
-
     const toggleOpen = (event) => {
-        const cardEle = event.currentTarget.parentElement.parentElement;
-        props.dispatch(applyOverlay(cardEle, "cardEdit", props.cardId, props.listId, false));
+        props.action();
         event.stopPropagation();
     }
 

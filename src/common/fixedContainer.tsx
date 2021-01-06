@@ -6,14 +6,15 @@ import AnchorButton from "../common/anchorButton"
 
 const FixedContainer = (props) => {
 
-    const [ title, setTitle ] = useState(props.element.innerText);
+    const [ title, setTitle ] = useState(props.title);
 
     const saveTitle = (event) => {
+        props.action(title);
         props.dispatch(editTaskTitle(props.cardId, props.listId, title));
         props.dispatch(applyOverlay(null, null, null, null, true));
     }
     
-    const coordinates = props.element.getBoundingClientRect();
+    const coordinates = props.coordinates; 
     const x = coordinates.left; 
     const y = coordinates.top;
     const width = coordinates.width;
@@ -24,7 +25,8 @@ const FixedContainer = (props) => {
         left: `${x}px`,
         width: `${width}px`,
         height: "76px",
-        borderRadius: "4px"
+        borderRadius: "4px",
+        zIndex: 1000
     }
 
     const stylesTwo = {

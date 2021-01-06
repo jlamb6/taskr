@@ -8,17 +8,19 @@ const ChecklistItem = (props) => {
 
     const [title, setTitle] = useState(props.title);
     const [isComplete, setComplete] = useState(props.complete);
+    const [isHidden, setIsHidden] = useState(props.hide);
     const updateProgress = props.update;
 
     const icon = (isComplete) ? "CheckCircle" : "RadioButtonUnchecked";
     let classes = (isComplete) ? "checklist__item item-complete" : "checklist__item";
-    if (props.hide) classes = classes.concat(" hide");
 
     const handleChange = (event) => { setTitle(event.target.value); };
     const handleEnter = (event) => { setTitle(event.target.value); };
+
     const toggleComplete = () => { 
         if (isComplete) { 
             setComplete(false);
+            // dispath action to update the complete status in the redux cache
             updateProgress(0);
          }
          else {
@@ -26,12 +28,15 @@ const ChecklistItem = (props) => {
             updateProgress(1);
          }
     };
+
     const changeText = (event) => { 
         if (isComplete) {
             event.target.style.fontStyle = "initial"; 
             event.target.style.textDecoration = "initial"; 
         }
     };
+
+    if (isHidden) return null;
 
     return (
         <div className={classes}>

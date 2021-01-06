@@ -1,4 +1,4 @@
-import { SET_VISIBILITY_FILTER, VisibilityFilters, ADD_LIST, VIEW_LISTS, GRAB_TASK_DETAILS, VIEW_BOARD, SORT_LIST, APPLY_OVERLAY, EDIT_TASK_TITLE, ADD_CHECKLIST_ITEM } from '../actions/actions'
+import { SET_VISIBILITY_FILTER, VisibilityFilters, ADD_LIST, VIEW_LISTS, GRAB_TASK_DETAILS, VIEW_BOARD, SORT_LIST, APPLY_OVERLAY, EDIT_TASK_TITLE, ADD_CHECKLIST_ITEM, UPDATE_COMPLETE } from '../actions/actions'
 import { ADD_TASK, SORT, TOGGLE_MENU } from "../actions/actions"
 import { combineReducers } from 'redux'
 
@@ -42,7 +42,16 @@ const initialState = {
                         description: "Here is a description.",
                         dateCreated: dateOne,
                         members: ["Jake Lamb"],
-                        activity: [`Created on ${dateOne}.`],
+                        activity: [
+                            {
+                                id: "90",
+                                type: "activity",
+                                timeCreated: "Mar 13 at 9:19 pm",
+                                title: "created this card",
+                                user: "Jacob Lamb"
+                            }
+                        ],
+                        details: [],
                         checklists: [
                             {
                                 id: "checklist-1",
@@ -73,7 +82,8 @@ const initialState = {
                         description: "Here is a description.",
                         dateCreated: dateOne,
                         members: ["Jake Lamb"],
-                        activity: [`Created on ${dateOne}.`],
+                        activity: [],
+                        details: [],
                         checklists: []
                     },
                     {
@@ -82,7 +92,8 @@ const initialState = {
                         description: "Here is a description.",
                         dateCreated: dateOne,
                         members: ["Jake Lamb"],
-                        activity: [`Created on ${dateOne}.`],
+                        activity: [],
+                        details: [],
                         checklists: []
                     }
                 ]
@@ -98,7 +109,8 @@ const initialState = {
                         description: "Here is a description.",
                         dateCreated: dateOne,
                         members: ["Jake Lamb"],
-                        activity: [`Created on ${dateOne}.`],
+                        activity: [],
+                        details: [],
                         checklists: []
                     },
                     {
@@ -107,7 +119,8 @@ const initialState = {
                         description: "Here is a description.",
                         dateCreated: dateOne,
                         members: ["Jake Lamb"],
-                        activity: [`Created on ${dateOne}.`],
+                        activity: [],
+                        details: [],
                         checklists: []
                     }
                 ]
@@ -187,13 +200,21 @@ function lists(state = initialState.lists, action) {
             console.log(newList);
             return Object.assign({}, state, {lists: [...state.lists, newList]})
         case ADD_TASK:
+            const createdDate = Date();
             const newTask = {
                 id: `${state.curTaskID++}`,
                 title: action.title,
                 description: '',
-                dateCreated: dateOne,
+                dateCreated: createdDate,
                 members: [],
-                activity: [`Created on ${dateOne}.`],
+                activity: [{
+                    id: "90",
+                    type: "activity",
+                    timeCreated: createdDate,
+                    title: "created this card",
+                    user: "Jacob Lamb"
+                }],
+                details: [],
                 checklists: []
             }
             const newListArr = state.lists.map(list => {
@@ -259,6 +280,7 @@ function lists(state = initialState.lists, action) {
             console.log(lists);
 
             return Object.assign({}, state, {lists: lists})
+            
         default:
             return state
     }

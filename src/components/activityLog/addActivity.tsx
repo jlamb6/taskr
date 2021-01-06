@@ -61,7 +61,13 @@ export const AddActivity = (props) => {
                 >
                 </Textarea>
                 <div className="new-activity__actions">
-                  <Button title="Post Comment" buttonType={ButtonTypes.NO_BORDER} backgroundColor="#e8e9ea" fontColor="dark-grey" onMouseDown={handleAddTask}/>
+                  <Button 
+                    title="Post Comment" 
+                    buttonType={ButtonTypes.NO_BORDER} 
+                    backgroundColor="#5aac44" 
+                    fontColor="white" 
+                    onMouseDown={handleAddTask}
+                  />
                 </div>
               </div>
             </div>
@@ -75,7 +81,7 @@ export const AddActivity = (props) => {
       setFormIsOpen(false);
 
       if (text) {
-        props.addItem(title);
+        props.addItem(title, "Jacob Lamb", "comment");
       }
     }
 
